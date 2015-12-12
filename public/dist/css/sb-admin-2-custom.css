@@ -1,0 +1,24 @@
+.huge-small {
+    font-size: 25px;
+}
+
+.well-color {
+    background-color: #337ab7;
+	color: #FFFFFF; 
+}
+
+.intructions {
+	padding-top: 5px;
+}
+
+.text-type {
+	margin-right: 5px;
+}
+
+.text-about {
+	margin-top: 18px;
+}
+
+.remove{
+	display: none;
+}

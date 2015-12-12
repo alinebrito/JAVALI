@@ -1,0 +1,13 @@
+{
+  "name": "JAVALI",
+  "version": "1.0.0",
+  "description": "A tool that allows to compare and to categorize Java APIs",
+  "main": "server.js",
+  "author": "Aline Brito",
+  "dependencies": {
+    "express": "~4.6.1",
+    "body-parser": "~1.4.3",
+    "method-override": "~2.1.1",
+    "mongodb": "~2.0.46"
+  }
+}

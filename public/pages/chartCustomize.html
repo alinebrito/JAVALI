@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="moduleMain">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>JAVALI</title>
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2-custom.css" rel="stylesheet">
+    <link href="../dist/css/graph-custom.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-controller="mainController"> <!--seta o controlador -->
+    <div id="wrapper">
+       <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"> <i class="fa fa-clipboard fa-fw"></i> JAVALI </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a href="about.html"><i class="fa fa-envelope "></i> Contact</a></li>
+                <li><a href="about.html"><i class="fa fa-info-circle"></i> About</a></li>
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                            <a href="index.html"><i class="fa fa-database fa-fw"></i> Dataset </a>
+                        </li>
+                        <li>
+                             <a href="#"><i class="fa fa-signal fa-fw"></i> Java API Popularity<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                   <a href="ranking.html"></i> Top API's </a>
+                                </li>
+                                <li>
+                                    <a href="rankingCustomize.html"> Customize Ranking </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Graphical Analysis <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                   <a href="chart.html"> Top API's Chart</a>
+                                </li>
+                                <li>
+                                   <a href="chartCustomize.html"> Customize Ranking Chart</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"><strong>Graphical Analysis: Popularity Java API and Library</strong></h3>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="well well-lg text-justify">
+                        <strong>Instructions:</strong>
+                        <ul>
+                            <li class="intructions">
+                                Select the <strong>Chart Type</strong>:
+                                <ul>
+                                    <li class="intructions">
+                                     <strong>APIs</strong>: Occurrence of each Java API. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
+                                    </li>
+                                    <!-- /.sub intructions -->
+                                    <li class="intructions">
+                                         <strong>Libraries</strong>: Occurrence of library's APIs. Enter the libraries list separated by comma (example: java.util, java.io).
+                                         <ul>
+                                             <li><strong>Group Libraries</strong>: Mark option to group by libraries.
+                                             </li>
+                                         </ul>
+                                    </li>
+                                    <!-- /.sub intructions -->
+                                </ul>
+                            </li>
+                            <li class="intructions">
+                                Then, press the <strong>Generate chart</strong> button. 
+                            </li>
+                            <!-- /.intructions -->
+                            <li class="intructions">
+                                Press the <strong>Delete chart</strong> button to remove chart. 
+                            </li>
+                            <!-- /.intructions -->
+                            <li class="intructions">
+                                Press the <strong>Download chart</strong> button to download chart in PDF format. 
+                            </li>
+                            <!-- /.intructions -->
+                        </ul>
+                    </div>
+                    <!-- /.well -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+			<div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <!-- Radios para filtrar a consulta. -->
+								<div class="row">
+                                    <!-- /.col-md-2 -->
+									<div class="col-md-6">
+										<div id="filterLibrary">
+                                            <strong class='text-type'>Chart Type:</strong>
+											<label class="radio-inline">
+												<input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" value="api" checked > APIs 
+											</label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" value="library"> Libraries
+                                            </label>
+                                            <label class="radio-inline checkbox-inline remove" id="gropLibraryLabel">
+                                                 <input type="checkbox" id="gropLibraryButton" checked > Group Libraries
+                                            </label>
+ 										</div>
+									</div>
+                                    <div class="col-md-6">
+                                            <div id="maxDataDiv" class="remove">
+                                                <label class="radio-inline">
+                                                    <input type="radio"  name="maxData" id="maxData10" value=5 ng-click="setColumns(5)" checked> 5 Columns
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="maxData" id="maxData15" value=10 ng-click="setColumns(10)" > 10 Columns
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="maxData" id="maxData15" value=15 ng-click="setColumns(15)"> 15 Columns
+                                                </label>
+                                            </div>
+                                    </div>
+                                    <!-- /.col-md-12 -->
+								</div>
+                                <!-- Campo para usuário informar as APIs que deseja buscar -->
+								<div class="row" style="margin-top: 15px;">
+									<div class="col-md-12">
+										<div class="form-group input-group">
+												<!-- Campo para o usuário informar as top apis que deseja visualizar.-->
+			                                    <input type="text" class="form-control" placeholder="Enter list separed by comma ( , )"  value={{formData.listFilter}} ng-model="formData.listFilter" >
+			                                    <span class="input-group-btn">
+			                                        <button id="createChart" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top"	title="Generate chart" ><i class="fa fa-bar-chart-o"></i>
+			                                        </button>
+			                                        <button id="clearChart" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top"    
+                                                    title="Delete chart" ><i class="fa fa-times"></i>
+                                                    </button>
+                                                    <button id="saveChart" style="margin-left: 6px;" class="btn btn-success disabled" type="button" data-toggle="tooltip" data-placement="top" 	
+													title="Download chart" ><i class="fa fa-download"></i>
+			                                        </button>
+			                                    </span>
+		                                </div>
+									</div>
+								</div>
+                                <!-- /.row -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- ícone de loanding enquanto a busca é realizada.-->
+                                        <p class="text-center" ng-show="loading">
+                                            <span class="fa fa-spinner fa-spin fa-3x"></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="area-graph" class="col-md-12">
+                                        <div class="alert alert-info label-custom remove" id="msg">
+                                            {{ msg }}
+                                        </div>
+                                        <!-- /#msg.alert alert-info -->
+                                        <div class="panel panel-default remove" id="panel-default-chart">
+                                                <div class="panel-heading">
+                                                Ranking Popularity
+                                                </div>
+                                                <div class="panel-body">
+                                                     <div id="morris-bar-chart">
+                                                        </div>
+                                                     <div class="panel panel-default text-center">
+                                                        <div class="panel-body label-custom">
+                                                            <strong>y-axis:</strong> Percentage of occurrence by project. <br>
+                                                            <strong>All Java projects (100%): </strong>{{ allProjects.toLocaleString() }}
+                                                        </div>
+                                                        <!-- /.panel-body -->
+                                                    </div>
+                                                    <!-- /.panel-body -->
+                                                </div>
+                                                <!-- /.panel-body -->
+                                        </div>
+                                        <!-- /#panel-default-chart.panel panel-default -->
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.dataTable_wrapper -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../bower_components/raphael/raphael-min.js"></script>
+    <script src="../bower_components/morrisjs/morris.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+	<!-- libs Angular -->
+	<script src="../js/angular.min.js"></script>
+	<script src="../js/angular-route.js"></script>
+
+    <!-- utils -->
+    <script src="../dist/js/utils.js"></script>
+
+	<!-- Chart -->
+	<script src="../dist/js/chart-morris-data.js"></script>
+
+	<!-- Modules angular -->
+	<script src="../dist/js/modules/core.js"></script>
+	<script src="../dist/js/modules/main.js"></script>
+	<script src="../dist/js/modules/moduleMongo.js"></script>
+
+    <!-- Download Chart -->
+    <script src="../js/xepOnline.jqPlugin.js"></script>
+
+    <script>
+		$(document).ready(function() {
+
+			//Escopo do angular.
+			var scope = angular.element($('body[ng-controller="mainController"]')).scope();
+
+            createChartCustomizeDefault(scope);
+            
+			//Criar um gráfico de barras com os registros encotrados.
+			$('#createChart').on( 'click', function () {
+				var filterLibrary = $('#filterLibrary input:radio:checked').val()
+				removeChart(); //Limpa o gráfico existente.
+				switch(filterLibrary){
+					case "api":
+						scope.findListApi(function(){
+							createChart(scope);
+						});
+						break;
+					default:
+                        if($("#gropLibraryButton").prop("checked")){
+                            //Agrupado, lista a ocorrência das biblitecas.
+                             scope.findListLibrary(function(){
+                                createChart(scope);
+                            });
+                        }
+                        else{
+                            // Sem agrupar, lista todas as apis da biblioteca.
+                            scope.findListApiByLibrary(function(){ 
+                                createChart(scope);
+                            });
+                        }
+				}
+			});
+
+			$('#clearChart').click( function () {
+				removeChart();
+			} );
+
+            $('#saveChart').click( function () {
+                saveChart();
+            } );
+
+            $('#filterLibraryButton').click( function () {
+                $('#gropLibraryLabel').removeClass('remove');
+            } );
+
+            $('#filterApiButton').click( function () {
+                $('#gropLibraryLabel').addClass('remove');
+            } );
+
+            $('#gropLibraryButton').click( function () {
+                if($(this).prop("checked")){
+                    $('#maxDataDiv').addClass('remove');
+                }
+                else{
+                    $('#maxDataDiv').removeClass('remove');
+                }
+            } );
+
+            
+           
+		});
+    </script>
+
+</body>
+
+</html>

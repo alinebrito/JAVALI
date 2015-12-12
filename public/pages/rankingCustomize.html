@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="moduleMain">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>JAVALI</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+	<link href="../dist/css/sb-admin-2-custom.css" rel="stylesheet">
+
+    <!-- Data table Buttons-->
+    <link href="../css/buttons.dataTables.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-controller="mainController"> <!--seta o controlador -->
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"> <i class="fa fa-clipboard fa-fw"></i> JAVALI </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a href="about.html"><i class="fa fa-envelope "></i> Contact</a></li>
+                <li><a href="about.html"><i class="fa fa-info-circle"></i> About</a></li>
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                            <a href="index.html"><i class="fa fa-database fa-fw"></i> Dataset </a>
+                        </li>
+                        <li>
+                             <a href="#"><i class="fa fa-signal fa-fw"></i> Java API Popularity<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                   <a href="ranking.html"></i> Top API's </a>
+                                </li>
+                                <li>
+                                    <a href="rankingCustomize.html"> Customize Ranking </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Graphical Analysis <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                   <a href="chart.html"> Top API's Chart</a>
+                                </li>
+                                <li>
+                                   <a href="chartCustomize.html"> Customize Ranking Chart</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"> <strong>Customize Ranking: Popularity Java API and Library</strong></h3>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="well well-lg text-justify">
+                        <strong>Instructions:</strong>
+                        <ul>
+                            <li class="intructions">
+                                Select the <strong>Table Type</strong>:
+                                <ul>
+                                   <li class="intructions">
+                                     <strong>APIs</strong>: Occurrence of each Java API. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
+                                    </li>
+                                    <!-- /.sub intructions -->
+                                    <li class="intructions">
+                                         <strong>Libraries</strong>: Occurrence of library's APIs. Enter the libraries list separated by comma (example: java.util, java.io).
+                                         <ul>
+                                             <li><strong>Group Libraries</strong>: Mark option to group by libraries.
+                                             </li>
+                                         </ul>
+                                    </li>
+                                    <!-- /.sub intructions -->
+                                </ul>
+                            </li>
+                            <li class="intructions">
+                                Then, press the <strong>Research</strong> button. 
+                            </li>
+                            <!-- /.intructions -->
+                            <li class="intructions">
+                               Press the <strong>Delete table</strong> button to remove data table.
+                            </li>
+                            <!-- /.intructions -->
+                            <li class="intructions">
+                                 Press the <strong>Download</strong> button to download data in CSV format.
+                            </li>
+                            <!-- /.intructions -->
+                        </ul>
+                    </div>
+                    <!-- /.well -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+									<div class="row">
+										<div class="col-md-6">
+											<div id="filterLibrary">
+                                                <strong class='text-type'>Chart Type:</strong>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" value="api" checked> APIs 
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" value="library"> Libraries
+                                                </label>
+                                                <label class="radio-inline checkbox-inline remove" id="gropLibraryLabel">
+                                                     <input type="checkbox" id="gropLibraryButton"> Group Libraries
+                                                </label>
+                                            </div>
+										</div>
+									</div>
+
+									<div class="row" style="margin-top: 15px;">
+										<div class="col-md-12">
+											<div class="form-group input-group">
+													<!-- Campo para o usuário informar as top apis que deseja visualizar.-->
+				                                    <input type="text" class="form-control" placeholder="Enter list separed by comma ( , )"  ng-model="formData.listFilter">
+				                                    <span class="input-group-btn">
+				                                        <button id="searchList" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top"	title="Research" ><i class="fa fa-sort-amount-desc"></i>
+				                                        </button>
+				                                        <button id="clearList" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top" 	
+														title="Clear table" ><i class="fa fa-times"></i>
+				                                        </button>
+                                                        <button id="downloadTable" style="margin-left: 6px;" class="btn btn-success " type="button" data-toggle="tooltip" data-placement="top"  
+                                                        title="Download" helf="#"><i class="fa fa-download"></i>
+                                                        </button>
+				                                    </span>
+			                                </div>
+										</div>
+									</div>
+	                                <table class="table table-striped table-bordered table-hover" 
+										id="dataTables-topImports">
+                                        <thead>
+                                            <tr>
+                                                <th>Position</th>
+                                                <th>Name</th>
+                                                <th>Ocurrence by project (%)</th>
+                                                <th>Number projects </th>
+                                            </tr>
+                                        </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+								<!-- ícone de loanding enquanto a busca é realizada.-->
+								<p class="text-center" ng-show="loading">
+									<span class="fa fa-spinner fa-spin fa-3x"></span>
+								</p>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+	<!-- libs Angular -->
+	<script src="../js/angular.min.js"></script>
+	<script src="../js/angular-route.js"></script>
+
+	<!-- Modules angular -->
+	<script src="../dist/js/modules/core.js"></script>
+	<script src="../dist/js/modules/main.js"></script>
+	<script src="../dist/js/modules/moduleMongo.js"></script>
+
+    <!-- Data table -->
+    <script src="../dist/js/table-data.js"></script>
+    
+    <!-- Data table Buttons-->
+    <script src="../js/dataTables.tableTools.js"></script>
+
+    <!-- utils -->
+    <script src="../dist/js/utils.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+        $(document).ready(function() {
+
+    		//Escopo do angular.
+    		var scope = angular.element($('body[ng-controller="mainController"]')).scope();
+            scope.setColumns(0); //sem limite de registros.
+
+             //Cria tabela default.
+            createTableCustomizeDefault(scope); 
+            
+    		//Busca os X top imports e preenche a tabela a lista de registros retornados.
+    		$('#searchList').on( 'click', function () {
+    			var filterLibrary = $('#filterLibrary input:radio:checked').val()
+    			switch(filterLibrary){
+                    case "api":
+                        scope.findListApi(function(){
+                            insertImportsToTable(scope);
+                        });
+                        break;
+                    default:
+                        if($("#gropLibraryButton").prop("checked")){
+                            //Agrupado, lista a ocorrência das biblitecas.
+                             scope.findListLibrary(function(){
+                                insertImportsToTable(scope);
+                            });
+                        }
+                        else{
+                            // Sem agrupar, lista todas as apis da biblioteca.
+                            scope.findListApiByLibrary(function(){ 
+                                insertImportsToTable(scope);
+                            });
+                        }
+                }
+    		});
+
+    	    $('#clearList').click( function () {
+    			clearTable(tableTopImports);
+        	} );
+
+             $('#downloadTable').click( function () {
+                dowloadTable(scope);
+            });
+
+            $('#filterLibraryButton').click( function () {
+                $('#gropLibraryLabel').removeClass('remove');
+            } );
+
+            $('#filterApiButton').click( function () {
+                $('#gropLibraryLabel').addClass('remove');
+            } );
+
+        });
+    </script>
+
+</body>
+
+</html>
