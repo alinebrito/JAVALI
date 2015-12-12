@@ -17,7 +17,9 @@ We use the GitHub database's of Boa Project . We use projects with valid Java fi
 ##Installation 
 
 * Install [Node.js](https://nodejs.org/en/).
+
 * Install [MongoDB](https://www.mongodb.org/).
+
 * Download project JAVALI and install Node.js modules.
 
   ```
