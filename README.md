@@ -20,25 +20,24 @@ We use the GitHub database's of Boa Project . We use projects with valid Java fi
 * Install [MongoDB](https://www.mongodb.org/).
 * Download project JAVALI and install Node.js modules.
 
-```
+  ```
   cd JAVALI/
   npm install
-```
+  ```
 * Download the [file input Boa](http://boa.cs.iastate.edu/boa/?q=boa/job/public/15965), to create the database.
 * Execute the [scrips](https://github.com/alinebrito/JAVALI/tree/master/scripts/create_database), to create database outputBOA.
 
    ```
-   
-    node create_collection_outputBOA_api.js
-    sh create_collection_outputBOA_api_group.sh
+  node create_collection_outputBOA_api.js
+  sh create_collection_outputBOA_api_group.sh
   ```
 * Start the application server.
 
    ```
-    node server.js
+  node server.js
   ```
 * Using your browser, access the url below to open the tool JAVALI.
 
    ```
-    http://localhost:8080/
+  http://localhost:8080/
   ```
