@@ -1,5 +1,5 @@
-var utilsDB = require('./utilsMongoDB');
-var utils = require('./utilsTools');
+var utilsDB = require('./utils/utilsMongoDB');
+var utils = require('./utils/utilsTools');
 
 // Retorna os  "limit" top imports que são API's, ou seja, não contém .* ao final.
 // Registros são ordenados por quantidade de projetos, arquivos e ordem alfabética.
