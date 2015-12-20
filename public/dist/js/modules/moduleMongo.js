@@ -3,6 +3,7 @@ var moduleMongo =  angular.module('moduleMongo', []);
 moduleMongo.factory('importDAO', ['$http',function($http) {
 	return {
 		findTopApi : function(data) {
+			console.log("data: " + JSON.stringify(data));
 			return $http.post('/import/top/api', data);
 		},
 
@@ -16,6 +17,10 @@ moduleMongo.factory('importDAO', ['$http',function($http) {
 
 		findListLibrary : function(data) {
 			return $http.post('/import/list/library', data);
+		},
+
+		info : function() {
+			return $http.post('/javali/info');
 		}
 	}
 }]);

@@ -1,5 +1,6 @@
 var utilsDB = require('./utils/utilsMongoDB');
 var utils = require('./utils/utilsTools');
+var config = require('./config');
 
 // Retorna os  "limit" top imports que são API's, ou seja, não contém .* ao final.
 // Registros são ordenados por quantidade de projetos, arquivos e ordem alfabética.
@@ -128,9 +129,13 @@ module.exports = function(app) {
 		findListApiByLibrary(res, list, cols);
 	});
 
-	app.post('/import/list/library',  function(req, res) {
+	app.post('/import/list/library', function(req, res) {
 		var list = utils.formartList(req.body.listFilter);
 		findListLibrary(res, list);
+	});
+
+	app.post('/javali/info', function(req, res) {
+		 res.json(config.info());
 	});
 
 	app.get('/', function(req, res) {

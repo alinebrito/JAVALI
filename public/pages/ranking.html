@@ -44,7 +44,7 @@
 
 </head>
 
-<body ng-controller="mainController"> <!--seta o controlador -->
+<body ng-controller="controllerRankings"> <!--seta o controlador -->
 
     <div id="wrapper">
         <!-- Navigation -->
@@ -239,10 +239,12 @@
         $(document).ready(function() {
 
     		//Escopo do angular.
-    		var scope = angular.element($('body[ng-controller="mainController"]')).scope();
+    		var scope = angular.element($('body[ng-controller="controllerRankings"]')).scope();
 
-            //Cria tabela default.
-            createTableTopDefault(scope); 
+            scope.getInfo(function(){
+              //Cria tabela default.
+              createTableTopDefault(scope); 
+            });
 
     		//Busca as X top API's e preenche a tabela com a lista de registros retornados.
     		$('#searchTopImports').on( 'click', function () {

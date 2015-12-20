@@ -38,7 +38,7 @@
 
 </head>
 
-<body ng-controller="mainController"> <!--seta o controlador -->
+<body ng-controller="controllerRankings"> <!--seta o controlador -->
     <div id="wrapper">
        <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -287,9 +287,11 @@
 		$(document).ready(function() {
 
 			//Escopo do angular.
-			var scope = angular.element($('body[ng-controller="mainController"]')).scope();
+			var scope = angular.element($('body[ng-controller="controllerRankings"]')).scope();
 
-            createChartCustomizeDefault(scope);
+            scope.getInfo(function(){
+              createChartCustomizeDefault(scope);
+            });
             
 			//Criar um gráfico de barras com os registros encotrados.
 			$('#createChart').on( 'click', function () {

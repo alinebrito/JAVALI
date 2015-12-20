@@ -42,7 +42,7 @@
 
 </head>
 
-<body ng-controller="mainController"> <!--seta o controlador -->
+<body ng-controller="controllerRankings"> <!--seta o controlador -->
 
     <div id="wrapper">
 
@@ -257,11 +257,13 @@
         $(document).ready(function() {
 
     		//Escopo do angular.
-    		var scope = angular.element($('body[ng-controller="mainController"]')).scope();
+    		var scope = angular.element($('body[ng-controller="controllerRankings"]')).scope();
             scope.setColumns(0); //sem limite de registros.
 
-             //Cria tabela default.
-            createTableCustomizeDefault(scope); 
+            scope.getInfo(function(){
+              //Cria tabela default.
+              createTableCustomizeDefault(scope); 
+            });
             
     		//Busca os X top imports e preenche a tabela a lista de registros retornados.
     		$('#searchList').on( 'click', function () {

@@ -1,1 +1,2 @@
-angular.module('moduleMain', ['moduleController', 'moduleMongo']);
+//Create module 'moduleMain'
+angular.module('moduleMain', ['moduleRankings', 'moduleMongo']);

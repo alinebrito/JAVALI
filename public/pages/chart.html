@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="moduleMain">
+<!-- Define namespace da aplicação como 'moduleMain', nome do módulo. -->
+<html lang="en" ng-app="moduleMain"> 
 
 <head>
 
@@ -38,7 +39,8 @@
 
 </head>
 
-<body ng-controller="mainController"> <!--seta o controlador -->
+<!-- Define o controller 'controllerRankings' -->
+<body ng-controller="controllerRankings"> 
     <div id="wrapper">
        <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -255,9 +257,11 @@
 		$(document).ready(function() {
 
 			//Escopo do angular.
-			var scope = angular.element($('body[ng-controller="mainController"]')).scope();
+			var scope = angular.element($('body[ng-controller="controllerRankings"]')).scope();
 
-            createChartTopDefault(scope);
+            scope.getInfo(function(){
+               createChartTopDefault(scope);
+            });
 
 			//Criar um gráfico de barras com os registros encotrados.
 			$('#createChart').on( 'click', function () {
