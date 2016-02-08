@@ -12,7 +12,7 @@ var findTopApi = function(res, limit){
 		.limit(limit)
 		.toArray(function(err, resp){
 			if(err){
-				utils.logError("ERRO:" + err);
+				utils.logError(err);
 			}
 			else{
 				res.json(resp);
@@ -30,7 +30,7 @@ var findListApi = function(res, list){
 		.sort(utilsDB.filterOrder())
 		.toArray(function(err, resp){
 			if(err){
-				utils.logError("ERRO:" + err);
+				utils.logError(err);
 			}
 			else{
 				res.json(resp);
@@ -62,7 +62,7 @@ var findListApiByLibrary = function(res, list, cols){
 		.limit(cols)
 		.toArray(function(err, resp){
 			if(err){
-				utils.logError("ERRO:" + err);
+				utils.logError(err);
 			}
 			else{
 				res.json(resp);
@@ -90,7 +90,7 @@ var findListLibrary = function(res, list){
 	     { $group: { _id: "$Project"}}
 				]).toArray(function(err, resp){
 				if(err){
-					utils.logError("ERRO:" + err);
+					utils.logError(err);
 				}
 				else{
 					//Formata registro.
