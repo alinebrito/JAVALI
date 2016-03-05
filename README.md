@@ -26,16 +26,16 @@ We use the GitHub database's of Boa Project . We use projects with valid Java fi
   cd JAVALI/
   npm install
   ```
-* Download the [file input Boa](http://boa.cs.iastate.edu/boa/?q=boa/job/public/15965), to create the database. For other entries set the app/config.js file. Input file format (occurrence - how many times the API was found in the project):
+* Download the [file input Boa](http://boa.cs.iastate.edu/boa/index.php?q=boa/job/public/33067), to create the database. For other entries set the app/config.js file. Input file format (occurrenc - how many times Api was found in the project):
 
   ```
-  API[name_project][name_api] = occurrence
+  API[projetc][api] = occurrence
   ```
 * Execute the [scrips](https://github.com/alinebrito/JAVALI/tree/master/scripts/create_database), to create database outputBOA.
 
    ```
-  node create_collection_outputBOA_api.js
-  sh create_collection_outputBOA_api_group.sh
+  node create_collection_JavaliApi.js
+  sh create_collection_JavaliApiGroup.sh
   ```
 * Start the application server.
 
