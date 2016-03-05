@@ -1,7 +1,7 @@
-use outputBOA;
+use JAVALI;
 
-var outCollection = "outputBOA_api_group";
-var inCollection =  "outputBOA_api";
+var outCollection = "javaliApiGroup";
+var inCollection =  "javaliApi";
 
 var SOURCE = db.getCollection(inCollection);
 

@@ -12,10 +12,10 @@
 #
 #	Onde:
 #		_id: nome da API;
-#		value.OccurrenceFile: quantidade de arquivos onde a API foi encontrada.
-#		value.OccurrenceFile: quantidade de projetos distintos onde a API foi encontrada.
+#		value.OccurrenceFile: quantidade de vezes que a api foi importada.
+#		value.OccurrenceProject: quantidade de projetos distintos onde a API foi encontrada.
 #	
 #	Para executar utilize: sh importsByProjectAndFile.sh
 #
 
-mongo < create_collection_outputBOA_api_group.js
+mongo < create_collection_JavaliApiGroup.js

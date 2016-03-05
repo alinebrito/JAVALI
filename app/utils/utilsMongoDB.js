@@ -6,9 +6,9 @@ var host = 'mongodb://127.0.0.1:27017/';
 
 var utils = require('./utilsTools');
 
-var dbName = 'outputBOA';
-var nameCollectionApi = "outputBOA_api_group";
-var nameCollectionLibrary = "outputBOA_api";
+var dbName = 'JAVALI';
+var nameCollectionApi = "javaliApiGroup";
+var nameCollectionLibrary = "javaliApi";
 
 var dbUrl = host + dbName;
 var db = null;

@@ -1,53 +1,51 @@
 /**
  * Script para ler os registros do arquivo de entrada e inserir no banco de dados MongoDB,
- * collection 'outputBOA_api'.
+ * collection 'javaliApi'.
  *
  * Estrutura do arquivo de entrada esperado:
- * 	API[nameProject][api] = occorrence
+ * 	API[ project (string) ][ api (string) ]  = occorrence (int)
  *  Onde:
- *  	nameProject: nome do projeto.
- *  	api: nome da API.
- *  	occurrence: quantidade de vezes que a API apareceu no projeto.
+ *  	occurrence: quantidade de vezes que a API foi importada no projeto.
  *  	
  *  Para executar utilize:
- *  	node create_collection_outputBOA_api.js
+ *  	node create_collection_JavaliApi.js
  *
  * Configuração inicial: 
  * 	path: diretório onde o arquivo encontra-se.
- *  nameFile: nome do arquivo de entrada. (disponível em: http://boa.cs.iastate.edu/boa/index.php?q=boa/job/public/15965)
+ *  nameFile: nome do arquivo de entrada. 
+ *  
+ *  Arquivo de entrada disponível em: http://boa.cs.iastate.edu/boa/index.php?q=boa/job/public/33067
  */
 
 // -------
 var path = "./";
-var nameFile = "boa-job15965-output.txt";
+var nameFile = "input_javali.txt";
 // -------
 
 var file = path + "/" + nameFile;
 
 // Dados para conexão com o MongoDB
 var host = 'mongodb://127.0.0.1:27017/';
-var dbName = 'outputBOA';
+var dbName = 'JAVALI';
 var dbUrl = host + dbName;
 var db = null;
 var collection = null;
-var nameCollection = "outputBOA_api";
+var nameCollection = "javaliApi";
 
 var lineReader = require('line-reader');
 var MongoClient = require('mongodb').MongoClient;
 
-var i =0;
 var insertRegistry = function(registry, last){
 	collection.insert([registry], function (err, result) {
 		      if (err) {
-		        	console.log("ERRO: " + err);
+		        	console.log("ERROR: " + err);
 		      } 
-		      // else {
-		        	//console.log("Inserindo registro: " + registry.Project + " - " + registry.Import);
-		      // }
+	       	else {
+	        	console.log(registry.Project + " - " + registry.Import);
+	       	}
 		      if(last){ // Se último registro, encerra a conexão.  	
-		      	console.log("Encerrando Conexão!");
-		      	console.log("Parser concluído!");
-		      	db.close();
+		      	console.log("\nSuccessfully created collection! \n");
+		      	//db.close();
 		      }
 		 });
 }
@@ -78,16 +76,16 @@ var parserFile = function(){
 
 
 var initParser = function(){
-	console.log("\nIniciando o processamento...");
+	console.log("\nStarted process...");
 	MongoClient.connect(dbUrl, function(err, dbMongo) {
 		  if(err) {
-		  	console.log("\nErro ao conectar em " + dbUrl);
+		  	console.log("\nError connecting in " + dbUrl);
 		  }
 		  else{
 		  		db = dbMongo;
 			  	collection = dbMongo.collection(nameCollection);
-			  	console.log("\nConectado com " + dbUrl);
-			  	console.log("\nIniciando parser do aquivo " + nameFile + "...\n");
+			  	console.log("\nConnected to " + dbUrl);
+			  	console.log("\nReading file " + nameFile + "...\n");
 			  	parserFile();
 		  }
 
