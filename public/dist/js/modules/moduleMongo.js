@@ -3,20 +3,19 @@ var moduleMongo =  angular.module('moduleMongo', []);
 moduleMongo.factory('importDAO', ['$http',function($http) {
 	return {
 		findTopApi : function(data) {
-			console.log("data: " + JSON.stringify(data));
-			return $http.post('/import/top/api', data);
+			return $http.post('/api/findTopApi', data);
 		},
 
 		findListApi : function(data) {
-			return $http.post('/import/list/api', data);
+			return $http.post('/api/findListApi', data);
 		},
 		
 		findListApiByLibrary : function(data) {
-			return $http.post('/import/list/api/byLibrary', data);
+			return $http.post('/api/findListApiByLibrary', data);
 		},
 
 		findListLibrary : function(data) {
-			return $http.post('/import/list/library', data);
+			return $http.post('/library/findListLibrary', data);
 		},
 
 		info : function() {

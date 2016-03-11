@@ -114,26 +114,26 @@ var findListLibrary = function(res, list){
 
 module.exports = function(app) {
 
-	app.post('/import/top/api',  function(req, res) {
+	app.post('/api/findTopApi',  function(req, res) {
 		findTopApi(res, Number(req.body.limit));
 	});
 
-	app.post('/import/list/api',  function(req, res) {
+	app.post('/api/findListApi',  function(req, res) {
 		var list = utils.formartList(req.body.listFilter);
 		findListApi(res, list);
 	});
 
-	app.post('/import/list/api/byLibrary',  function(req, res) {
+	app.post('/api/findListApiByLibrary',  function(req, res) {
 		var list = utils.formartList(req.body.listFilter);
 		var cols = Number(req.body.columns);
 		findListApiByLibrary(res, list, cols);
 	});
 
-	app.post('/import/list/library', function(req, res) {
+	app.post('/library/findListLibrary', function(req, res) {
 		var list = utils.formartList(req.body.listFilter);
 		findListLibrary(res, list);
 	});
-
+	
 	app.post('/javali/info', function(req, res) {
 		 res.json(config.info());
 	});

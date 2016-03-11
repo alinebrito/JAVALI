@@ -12,11 +12,11 @@ module.exports = {
 	formartList: function(text){
 		return text.replace(/ /g, '').split(",");
 	},
-
+	//Imprime log de erro.
 	logError: function(msg){
 		console.log("\n" + new Date() + " ERROR: " + msg);
 	},
-
+	//Imprime log de informação.
 	logInfo: function(msg){
 		console.log("\n" + new Date() + " INFO: " + msg);
 	}
