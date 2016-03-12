@@ -4,10 +4,10 @@
 
 var info = {};
 
-info.allProjects = 263425; 			// Amount of Java projects.
-info.allImports = 4780469; 			// Amount of Java imports (distincts).
-info.importsRead = 131147733; 	// Amount of Java imports (all).
-info.filesRead = 16386193; 			// Amount of Java files.
+info.allProjects = 263425; 							// Amount of Java projects.
+info.importsDistincts = 4780469; 				// Amount of Java imports (distincts).
+info.allImports = 131147733; 						// Amount of Java imports (all).
+info.allFiles = 16386193; 							// Amount of Java files.
 
 /**
  * Format: 

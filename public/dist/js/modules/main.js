@@ -24,13 +24,13 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 		importDAO.info()
 		.success(function(data){
 			if(data){
-				$scope.allProjects = data.allProjects;
-				$scope.allImports = data.allImports;
-				$scope.importsRead = data.importsRead;
-				$scope.filesRead = data.filesRead;
-				$scope.listTopDefault = [data.top1, data.top2, data.top3, data.top4, data.top5];
+				$scope.allProjects 					= data.allProjects;
+				$scope.importsDistincts 		= data.importsDistincts;
+				$scope.allImports 					= data.allImports;
+				$scope.allFiles 						= data.allFiles;
+				$scope.listTopDefault 			= [data.top1, data.top2, data.top3, data.top4, data.top5];
 				$scope.listCustomizeDefault = [data.top1, data.top3];
-				$scope.formData.listFilter = data.top1._id + ", " + data.top3._id;
+				$scope.formData.listFilter 	= data.top1._id + ", " + data.top3._id;
 				if(callback){ //executa callback se existir.
 					callback();
 				}
