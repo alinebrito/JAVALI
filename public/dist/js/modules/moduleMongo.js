@@ -1,6 +1,6 @@
 var moduleMongo =  angular.module('moduleMongo', []);
 
-moduleMongo.factory('importDAO', ['$http',function($http) {
+moduleMongo.factory('importsMongoDAO', function($http) {
 	return {
 		findTopApi : function(data) {
 			return $http.post('/api/findTopApi', data);
@@ -22,4 +22,4 @@ moduleMongo.factory('importDAO', ['$http',function($http) {
 			return $http.post('/javali/info');
 		}
 	}
-}]);
+});

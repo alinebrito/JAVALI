@@ -247,7 +247,7 @@
 
 	<!-- Modules angular -->
 	<script src="../dist/js/modules/core.js"></script>
-	<script src="../dist/js/modules/main.js"></script>
+	<script src="../dist/js/modules/moduleRankings.js"></script>
 	<script src="../dist/js/modules/moduleMongo.js"></script>
 
     <!-- Download Chart -->
@@ -263,7 +263,7 @@
                createChartTopDefault(scope);
             });
 
-			//Criar um gráfico de barras com os registros encotrados.
+			//Criar um gráfico de barras com os registros encontrados.
 			$('#createChart').on( 'click', function () {
                 scope.findTopApi(function(){
                     createChart(scope);

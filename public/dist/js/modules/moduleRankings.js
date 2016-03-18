@@ -1,7 +1,7 @@
 var moduleController = angular.module('moduleRankings', []);
 
 //Controller para as telas relacionadas ao rankings de APIs/biblitecas.
-moduleController.controller('controllerRankings', ['$scope','importDAO', function($scope, importDAO) {
+moduleController.controller('controllerRankings', function($scope, importsMongoDAO) {
 	$scope.formData = {};
 	$scope.loading = false;
 	$scope.formData.limit = 5;
@@ -21,7 +21,7 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 
 	//Informações do dataset e top APIS, para páginas default.
 	$scope.getInfo = function(callback){
-		importDAO.info()
+		importsMongoDAO.info()
 		.success(function(data){
 			if(data){
 				$scope.allProjects 					= data.allProjects;
@@ -59,7 +59,7 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 	$scope.findTopApi = function(callback) {
 		if ($scope.formData.limit != undefined) {
 			$scope.loading = true;
-			importDAO.findTopApi($scope.formData)
+			importsMongoDAO.findTopApi($scope.formData)
 				.success(function(data) {
 					$scope.loading = false;
 					$scope.imports = data; 
@@ -72,7 +72,7 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 	$scope.findListApi = function(callback) {
 		if ($scope.formData.listFilter != undefined) {
 			$scope.loading = true;
-			importDAO.findListApi($scope.formData)
+			importsMongoDAO.findListApi($scope.formData)
 				.success(function(data) {
 					$scope.loading = false;
 					$scope.imports = data; 
@@ -85,7 +85,7 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 	$scope.findListApiByLibrary = function(callback) {
 		if ($scope.formData.listFilter != undefined) {
 			$scope.loading = true;
-			importDAO.findListApiByLibrary($scope.formData)
+			importsMongoDAO.findListApiByLibrary($scope.formData)
 				.success(function(data) {
 					$scope.loading = false;
 					$scope.imports = data; 
@@ -98,7 +98,7 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 	$scope.findListLibrary = function(callback) {
 		if ($scope.formData.listFilter != undefined) {
 			$scope.loading = true;
-			importDAO.findListLibrary($scope.formData)
+			importsMongoDAO.findListLibrary($scope.formData)
 				.success(function(data) {
 					$scope.loading = false;
 					$scope.imports = data; 
@@ -107,4 +107,5 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 				});
 		}
 	};
-}]);
+
+});
