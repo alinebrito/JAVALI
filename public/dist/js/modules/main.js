@@ -12,7 +12,7 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 		var mgsError = "An error occurred during the process, contact the system administrator.";
 		var msgDataNotFound = "No data found.";
 		if(list.length > 0 ){
-				$scope.msg = null;
+			$scope.msg = null;
 		}
 		else{
 			$scope.msg = msgDataNotFound;
@@ -25,7 +25,7 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 		.success(function(data){
 			if(data){
 				$scope.allProjects 					= data.allProjects;
-				$scope.importsDistincts 		= data.importsDistincts;
+				$scope.distinctsImports 		= data.distinctsImports;
 				$scope.allImports 					= data.allImports;
 				$scope.allFiles 						= data.allFiles;
 				$scope.listTopDefault 			= [data.top1, data.top2, data.top3, data.top4, data.top5];
@@ -107,5 +107,4 @@ moduleController.controller('controllerRankings', ['$scope','importDAO', functio
 				});
 		}
 	};
-
 }]);
