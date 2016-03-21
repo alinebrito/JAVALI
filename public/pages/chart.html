@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- Define namespace da aplicação como 'moduleMain', nome do módulo. -->
-<html lang="en" ng-app="moduleMain"> 
+<!-- Define namespace da aplicação como 'moduleMainCharts', nome do módulo. -->
+<html lang="en" ng-app="moduleCharts"> 
 
 <head>
 
@@ -39,8 +39,8 @@
 
 </head>
 
-<!-- Define o controller 'controllerRankings' -->
-<body ng-controller="controllerRankings"> 
+<!-- Define o controller 'controllerCharts' -->
+<body ng-controller="controllerTopCharts"> 
     <div id="wrapper">
        <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -139,13 +139,13 @@
                                             <!-- Campo para o usuário informar as top apis que deseja visualizar.-->
                                             <input id="inputLimit" type="number" class="form-control" min="0" step="1" data-bind="value:replyNumber" buttons="true" placeholder="Enter ranking size" ng-model="formData.limit">
                                             <span class="input-group-btn">
-                                                <button id="createChart" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top"  title="Generate chart" ><i class="fa fa-sort-amount-desc"></i>
+                                                <button id="createChart" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top"  title="Generate chart" ng-click="createChartTopApis()" ><i class="fa fa-sort-amount-desc"></i>
                                                 </button>
                                                 <button id="clearChart" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top"  
-                                                title="Delete chart" ><i class="fa fa-times"></i>
+                                                title="Delete chart" ng-click="removeChart()" ><i class="fa fa-times"></i>
                                                 </button>
                                                 <button id="saveChart" style="margin-left: 6px;" class="btn btn-success disabled" type="button" data-toggle="tooltip" data-placement="top"  
-                                            title="Download chart" ><i class="fa fa-download"></i>
+                                            title="Download chart"  ng-click="saveChart()"><i class="fa fa-download"></i>
                                                 </button>
                                             </span>
                                         </div>
@@ -156,10 +156,10 @@
                                     <div class="col-md-4 text-right">
                                         <div class="form-group input-group">
                                              <span class="input-group-btn">
-                                                <button id="plusPosition" style="margin-left: 6px;" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="+ 5 positions" ><strong> +5 </strong>
+                                                <button id="plusPosition" style="margin-left: 6px;" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="+ 5 positions"  ng-click="plusPosition()" ><strong> +5 </strong>
                                                 </button>
                                                 <button id="minusPosition" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top"  
-                                                title="- 5 positions" ><strong> -5 </strong>
+                                                title="- 5 positions" ng-click="minusPosition()" ><strong> -5 </strong>
                                                 </button>
                                              </span>
                                          </div>
@@ -170,7 +170,7 @@
                                 <div class="row">
                                      <div class="col-lg-12">
                                         <!-- ícone de loanding enquanto a busca é realizada.-->
-                                        <p class="text-center" ng-show="loading">
+                                        <p class="text-center" ng-show="show.loading">
                                             <span class="fa fa-spinner fa-spin fa-3x"></span>
                                         </p>
                                     </div>
@@ -238,61 +238,12 @@
 	<script src="../js/angular.min.js"></script>
 	<script src="../js/angular-route.js"></script>
 
-
-	<!-- Chart -->
-	<script src="../dist/js/chart-morris-data.js"></script>
-
-    <!-- util -->
-    <script src="../dist/js/utils.js"></script>
-
 	<!-- Modules angular -->
-	<script src="../dist/js/modules/core.js"></script>
+    <script src="../dist/js/modules/moduleCharts.js"></script>
 	<script src="../dist/js/modules/moduleRankings.js"></script>
-	<script src="../dist/js/modules/moduleMongo.js"></script>
 
     <!-- Download Chart -->
     <script src="../js/xepOnline.jqPlugin.js"></script>
-
-    <script>
-		$(document).ready(function() {
-
-			//Escopo do angular.
-			var scope = angular.element($('body[ng-controller="controllerRankings"]')).scope();
-
-            scope.getInfo(function(){
-               createChartTopDefault(scope);
-            });
-
-			//Criar um gráfico de barras com os registros encontrados.
-			$('#createChart').on( 'click', function () {
-                scope.findTopApi(function(){
-                    createChart(scope);
-                });
-			});
-
-			$('#clearChart').click( function () {
-				removeChart();
-			} );
-
-            $('#saveChart').click( function () {
-                saveChart();
-            });
-
-            $('#plusPosition').click( function () {
-                scope.plusPosition(function(){
-                    createChart(scope);
-                });
-            });
-
-            $('#minusPosition').click( function () {
-                scope.minusPosition(function(){
-                    createChart(scope);
-                });
-            });
-
-
-		});
-    </script>
 
 </body>
 

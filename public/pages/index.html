@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="moduleMain">
+<html lang="en" ng-app="moduleCharts">
 
 <head>
 
@@ -16,9 +16,8 @@
 	<script src="../js/angular-route.js"></script>
 
 	<!-- Modules angular -->
-	<script src="../dist/js/modules/core.js"></script>
-	<script src="../dist/js/modules/moduleRankings.js"></script>
-	<script src="../dist/js/modules/moduleMongo.js"></script>
+	<script src="../dist/js/modules/moduleCharts.js"></script>
+    <script src="../dist/js/modules/moduleRankings.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +47,7 @@
 
 </head>
 
-<body ng-controller="controllerRankings"> <!--seta o controlador -->
+<body ng-controller="controllerPrincipal"> <!--seta o controlador -->
 
     <div id="wrapper">
 
@@ -224,7 +223,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-												<tr ng-repeat="api in listTopDefault">
+												<tr ng-repeat="api in imports">
 	                                                <td>{{ api.pos }}</td>
 	                                                <td>{{ api._id }} </td>
 	                                            </tr>
@@ -275,26 +274,9 @@
     <script src="../bower_components/raphael/raphael-min.js"></script>
     <script src="../bower_components/morrisjs/morris.min.js"></script>
 
-	<!-- Chart -->
-	<script src="../dist/js/chart-morris-data.js"></script>
-
-    <!-- utils -->
-    <script src="../dist/js/utils.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
-	<script>
-		$(document).ready(function() {
-
-			//Escopo do angular.
-			var scope = angular.element($('body[ng-controller="controllerRankings"]')).scope();
-
-            scope.getInfo(function(){
-                createChartTopDefault(scope)
-            });
-		});
-    </script>
 
 </body>
 

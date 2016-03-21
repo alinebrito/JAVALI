@@ -80,9 +80,7 @@ var findListApiByLibrary = function(res, list, cols){
 //			Projeto C: org.apache.*
 //			Projeto D: java.util.*.
 var findListLibrary = function(res, list){
-	
 	var result = [];
-
 	list.forEach(function(library, index){
 		utilsDB.connectMongoDB(function(){
 			utilsDB.getCollectionLibrary().aggregate([
@@ -115,23 +113,31 @@ var findListLibrary = function(res, list){
 module.exports = function(app) {
 
 	app.post('/api/findTopApi',  function(req, res) {
-		findTopApi(res, Number(req.body.limit));
+		if(req.body.limit != null){
+			findTopApi(res, Number(req.body.limit));
+		}
 	});
 
 	app.post('/api/findListApi',  function(req, res) {
-		var list = utils.formartList(req.body.listFilter);
-		findListApi(res, list);
+		if(req.body.listFilter != null){
+			var list = utils.formartList(req.body.listFilter);
+			findListApi(res, list);
+		}
 	});
 
 	app.post('/api/findListApiByLibrary',  function(req, res) {
-		var list = utils.formartList(req.body.listFilter);
-		var cols = Number(req.body.columns);
-		findListApiByLibrary(res, list, cols);
+		if((req.body.listFilter != null)  && (req.body.columns != null)){
+			var list = utils.formartList(req.body.listFilter);
+			var cols = Number(req.body.columns);
+			findListApiByLibrary(res, list, cols);
+		}
 	});
 
 	app.post('/library/findListLibrary', function(req, res) {
-		var list = utils.formartList(req.body.listFilter);
-		findListLibrary(res, list);
+		if(req.body.listFilter != null){
+			var list = utils.formartList(req.body.listFilter);
+			findListLibrary(res, list);
+		}
 	});
 	
 	app.post('/javali/info', function(req, res) {

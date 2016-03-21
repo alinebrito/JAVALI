@@ -1,111 +1,47 @@
-var moduleController = angular.module('moduleRankings', []);
+var moduleRankings = angular.module('moduleRankings', []);
 
-//Controller para as telas relacionadas ao rankings de APIs/biblitecas.
-moduleController.controller('controllerRankings', function($scope, importsMongoDAO) {
-	$scope.formData = {};
-	$scope.loading = false;
-	$scope.formData.limit = 5;
-	$scope.formData.columns = 5; //Quantidade de colunas do gráfico de barras.
+//Factory para fazer requisições relacionadas à popularidade de APIs/bibliotecas.
+moduleRankings.factory('factoryRankings', function($http) {
+	return {
+		//Retorna as N top APIs.
+		findTopApi : function(data) {
+			return $http.post('/api/findTopApi', data);
+		},
 
-	//Formata atributo 'msg' caso necessário.
-	var formatMsg = function(list){
-		var mgsError = "An error occurred during the process, contact the system administrator.";
-		var msgDataNotFound = "No data found.";
-		if(list.length > 0 ){
-			$scope.msg = null;
-		}
-		else{
-			$scope.msg = msgDataNotFound;
-		}
-	}
+		//Retorna a popularidade das APIs desejadas. 
+		findListApi : function(data) {
+			return $http.post('/api/findListApi', data);
+		},
+		
+		//Retorna a popularidade das APIs que pertencem às bibliotecas informadas. 
+		findListApiByLibrary : function(data) {
+			return $http.post('/api/findListApiByLibrary', data);
+		},
 
-	//Informações do dataset e top APIS, para páginas default.
-	$scope.getInfo = function(callback){
-		importsMongoDAO.info()
-		.success(function(data){
-			if(data){
-				$scope.allProjects 					= data.allProjects;
-				$scope.distinctsImports 		= data.distinctsImports;
-				$scope.allImports 					= data.allImports;
-				$scope.allFiles 						= data.allFiles;
-				$scope.listTopDefault 			= [data.top1, data.top2, data.top3, data.top4, data.top5];
-				$scope.listCustomizeDefault = [data.top1, data.top3];
-				$scope.formData.listFilter 	= data.top1._id + ", " + data.top3._id;
-				if(callback){ //executa callback se existir.
-					callback();
-				}
-			}
-		});
-	}
+		//Retorna a popularidade das bibliotecas informadas. 
+		findListLibrary : function(data) {
+			return $http.post('/library/findListLibrary', data);
+		},
 
-	$scope.getInfo();
-
-	$scope.plusPosition  = function(callback){
-		$scope.formData.limit  += 5;
-		$scope.findTopApi(callback);
-	}
-	
-	$scope.minusPosition  = function(callback){
-		if($scope.formData.limit > 5){
-			$scope.formData.limit -= 5;
-			$scope.findTopApi(callback);
+		//Informações do dataset e top APIS, para páginas default.
+		getInfo : function() {
+			return $http.post('/javali/info');
 		}
 	}
+});
 
-	$scope.setColumns = function(val){
-			$scope.formData.columns = val;
-	}
+//Funções utilitárias, comuns às páginas.
+moduleRankings.service('utilTools', function() {
 
-	$scope.findTopApi = function(callback) {
-		if ($scope.formData.limit != undefined) {
-			$scope.loading = true;
-			importsMongoDAO.findTopApi($scope.formData)
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.imports = data; 
-					formatMsg(data);
-					callback();
-				});
+		//Mensagem de erro padrão.
+		this.msgError = function(){
+			return "An error occurred during the process, contact the system administrator.";
 		}
-	};
 
-	$scope.findListApi = function(callback) {
-		if ($scope.formData.listFilter != undefined) {
-			$scope.loading = true;
-			importsMongoDAO.findListApi($scope.formData)
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.imports = data; 
-					formatMsg(data);
-					callback();
-				});
+		//Mensagem padrão, para consultas que não retornarem resultados.
+		this.msgNotData = function(){
+			return "No data found";
 		}
-	};
-
-	$scope.findListApiByLibrary = function(callback) {
-		if ($scope.formData.listFilter != undefined) {
-			$scope.loading = true;
-			importsMongoDAO.findListApiByLibrary($scope.formData)
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.imports = data; 
-					formatMsg(data);
-					callback();
-				});
-		}
-	};
-
-	$scope.findListLibrary = function(callback) {
-		if ($scope.formData.listFilter != undefined) {
-			$scope.loading = true;
-			importsMongoDAO.findListLibrary($scope.formData)
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.imports = data; 
-					formatMsg(data);
-					callback();
-				});
-		}
-	};
 
 });
+
