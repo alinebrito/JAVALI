@@ -37,10 +37,9 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 
 	//Exibe mensagem de erro na interface.
 	$scope.processError = function(){
-		$scope.removeChart();
+		utilChart.removeChart();
 		$scope.show.loading = false;
 		$scope.msg = utilTools.msgError();
-		$scope.removeChart();
 		utilChart.showMsg();
 	}
 
@@ -53,7 +52,7 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 			utilChart.createChart($scope);
 		}
 		else {
-			$scope.removeChart();
+			utilChart.removeChart();
 			$scope.msg = utilTools.msgNotData();
 			utilChart.showMsg();
 		}

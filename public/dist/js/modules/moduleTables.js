@@ -1,7 +1,7 @@
 //Módulo para manipulação das tabelas.
 var moduleCharts =  angular.module('moduleTables', ['moduleRankings']);
 
-moduleCharts.controller('controllerTopTables', function($scope, factoryRankings, utilTable) {
+moduleCharts.controller('controllerTopTables', function($scope, factoryRankings, utilTable, utilTools) {
 
 		$scope.msg = null;
 		$scope.allProjects = null;
@@ -71,7 +71,7 @@ moduleCharts.controller('controllerTopTables', function($scope, factoryRankings,
 		}
 });
 
-moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRankings, utilTable) {
+moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRankings, utilTable, utilTools) {
 
 	$scope.formData = {};
 	$scope.formData.listFilter = "";
@@ -108,10 +108,9 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 
 	//Exibe mensagem de erro na interface.
 	$scope.processError = function(){
-		$scope.clearTable();
+		utilTable.clearTable();
 		$scope.show.loading = false;
 		$scope.msg = utilTools.msgError();
-		$scope.removeChart();
 		utilTable.showMsg();
 	}
 
