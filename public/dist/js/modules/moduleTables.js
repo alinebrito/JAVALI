@@ -230,9 +230,10 @@ moduleCharts.service('utilTable', function() {
 		var title = ["Position", "Name", "Ocurrece by project (%)", "Number projects"];
 	 	file += title.join(",") + "\n";
 	 	//Insere conteúdo da tabela.
-		var list = data.table.data();
+		var list = data.imports;
 		for (i = 0; i< list.length; i++){
-			file += list[i] + "\n";
+			var val = eval(i+1) + "," + list[i]._id + "," + this.calcOccurrence(list[i].value.OccurrenceProject, data) + "," + list[i].value.OccurrenceProject;
+			file += val + "\n";
 		}
 		//Exporta arquivo.
 	  var csvData = 'data:text/csv;charset=utf-8,' + encodeURIComponent(file);
