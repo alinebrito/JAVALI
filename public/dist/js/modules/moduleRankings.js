@@ -23,6 +23,18 @@ moduleRankings.factory('factoryRankings', function($http) {
 			return $http.post('/library/findListLibrary', data);
 		},
 
+		//Retorna a popularidade das bibliotecas informadas,
+		//desde que possuam a String informada.
+		findListLibraryByString : function(data) {
+			return $http.post('/library/findListLibraryByString', data);
+		},
+
+		//Retorna a popularidade das APIs que pertencem às bibliotecas informadas,
+		//e contém a String informada. 
+		findListApiByLibraryAndString : function(data) {
+			return $http.post('/api/findListApiByLibraryAndString', data);
+		},
+
 		//Informações do dataset e top APIS, para páginas default.
 		getInfo : function() {
 			return $http.post('/javali/info');

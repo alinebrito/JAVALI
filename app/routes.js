@@ -110,6 +110,78 @@ var findListLibrary = function(res, list){
 	});
 }
 
+// Retorna todas as API's e respectivas informações sobre popularidade, desde que a API pertença
+// a uma da libraries contidas na lista recebida como parâmetro, e possua a chave
+// recebida. Registros ordenados  por quantidade de 	projetos, arquivos e ordem alfabética. 
+// @list: Exemplo: ["java.util", "org.apache"]
+var findListApiByLibraryAndString = function(res, list, key){
+	utilsDB.connectMongoDB(function(){
+		//Adiciona uma expressão para cada import recebido.
+		var or = {}
+		or["$or"]=[];
+		list.forEach(function(val, i){
+			or["$or"].push({"_id": utilsDB.filterContainsLibrary(val)});
+		});
+		//Contrói a query para retornar todos os imports da lista, desde que não terminem com *.
+		var query = {}
+		query["$and"]=[];
+		query["$and"].push(or)
+		query["$and"].push({ '_id': utilsDB.filterNotAsterisk()})
+		query["$and"].push({ '_id': utilsDB.filterContainsString(key)})
+
+		//Executa a query.
+		utilsDB.getCollectionApi().find(query)
+		.sort(utilsDB.filterOrder())
+		.toArray(function(err, resp){
+			if(err){
+				utils.logError(err);
+			}
+			else{
+				res.json(resp);
+			}  
+		});
+	});
+}
+
+// Para cada library presente na lista, recupera a quantidade de projetos distintos que a utiliza.
+// Ou seja, busca projetos onde pelo menos um import começa com a  substring informada.
+//
+// Exemplo: Para a library "java.util", teremos 3 projetos que a utiliza (A, B, D);
+//			Projeto A: java.util.List, java.util.ArrayList
+//			Projeto B: java.util.List
+//			Projeto C: org.apache.*
+//			Projeto D: java.util.*.
+var findListLibraryByString = function(res, list, key){
+	var result = [];
+	list.forEach(function(library, index){
+		utilsDB.connectMongoDB(function(){
+			utilsDB.getCollectionLibrary().aggregate([
+			{ $match: { $and: [ { "Import" : utilsDB.filterContainsLibrary(library) }, { "Import" : utilsDB.filterContainsString(key)}]} },
+	     { $group: { _id: "$Project"}}
+				]).toArray(function(err, resp){
+				if(err){
+					utils.logError(err);
+				}
+				else{
+					//Formata registro.
+					var registry = {};
+					registry._id = library;
+					registry['value'] = {"OccurrenceProject": Number(resp.length)};
+
+					//Insere registro na lista.
+					result.push(registry);
+
+					//Após consultar todas as libraries da lista ordena registros.
+					if(result.length === list.length){
+						result = utils.sortByOccurrenceProject(result); //ordena registros.
+						res.json(result);//retorna resultado.
+					}
+				}  
+			});
+		});
+	});
+}
+
 module.exports = function(app) {
 
 	app.post('/api/findTopApi',  function(req, res) {
@@ -126,7 +198,7 @@ module.exports = function(app) {
 	});
 
 	app.post('/api/findListApiByLibrary',  function(req, res) {
-		if((req.body.listFilter != null)  && (req.body.columns != null)){
+		if(req.body.listFilter != null){
 			var list = utils.formartList(req.body.listFilter);
 			var cols = Number(req.body.columns);
 			findListApiByLibrary(res, list, cols);
@@ -137,6 +209,22 @@ module.exports = function(app) {
 		if(req.body.listFilter != null){
 			var list = utils.formartList(req.body.listFilter);
 			findListLibrary(res, list);
+		}
+	});
+
+	app.post('/api/findListApiByLibraryAndString',  function(req, res) {
+		if(req.body.listFilter != null){
+			var list = utils.formartList(req.body.listFilter);
+			var key = req.body.contains;
+			findListApiByLibraryAndString(res, list, key);
+		}
+	});
+
+		app.post('/library/findListLibraryByString', function(req, res) {
+		if(req.body.listFilter != null){
+			var list = utils.formartList(req.body.listFilter);
+			var key = req.body.contains;
+			findListLibraryByString(res, list, key);
 		}
 	});
 	

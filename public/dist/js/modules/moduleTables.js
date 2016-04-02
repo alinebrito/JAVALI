@@ -76,11 +76,12 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 	$scope.formData = {};
 	$scope.formData.listFilter = "";
 	$scope.formData.type = "api";
-	$scope.formData.columns = 5;
 	$scope.table = utilTable.getTable(); //Inicializa tabela.
+	$scope.formData.contains = "";
 
 	$scope.show = {};
 	$scope.show.group = false;	//Exibe opção para agrupar bibliotecas.
+	$scope.show.contains = false;	//Exibe opção para buscar string.
 	$scope.show.menuLibraries = false; //Exibe campos para selecionar a quantidade de colunas.
 	$scope.show.loading = false;	//Exibe ícone enquanto processamento é realizado.
 
@@ -144,25 +145,46 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 		}
 		else { //Para opção "Libraries".
 			if ($scope.show.group) { //Se opção "Group" assinalada.
-				factoryRankings.findListLibrary($scope.formData)
-				.success(function(data) {
-					$scope.processSuccess(data);
-				})
-				.error(function(data, status) {
-					$scope.processError();
-				});
-			} else { //Sem a opçõa "Group".
-				factoryRankings.findListApiByLibrary($scope.formData)
-				.success(function(data) {
-					$scope.processSuccess(data);
-				})
-				.error(function(data, status) {
+				if ($scope.show.contains) { //Se opção "Contains" assinalada.
+					 factoryRankings.findListLibraryByString($scope.formData)
+					.success(function(data) {
+						$scope.processSuccess(data);
+					})
+					.error(function(data, status) {
+							$scope.processError();
+					});
+				}
+				else{//Se opção "Contains" não está assinalada.
+					factoryRankings.findListLibrary($scope.formData)
+					.success(function(data) {
+						$scope.processSuccess(data);
+					})
+					.error(function(data, status) {
 						$scope.processError();
-				});
+					});
+				}
+			} else { //Sem a opção "Group".
+				if ($scope.show.contains) { //Se opção "Contains" assinalada.
+					factoryRankings.findListApiByLibraryAndString($scope.formData)
+					.success(function(data) {
+						$scope.processSuccess(data);
+					})
+					.error(function(data, status) {
+							$scope.processError();
+					});
+				}
+				else{//Se opção "Contains" não está assinalada.
+					factoryRankings.findListApiByLibrary($scope.formData)
+					.success(function(data) {
+						$scope.processSuccess(data);
+					})
+					.error(function(data, status) {
+							$scope.processError();
+					});
+				}
 			}
 		}
 	};
-
 });
 
 moduleCharts.service('utilTable', function() {

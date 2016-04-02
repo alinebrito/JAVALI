@@ -50,6 +50,11 @@ module.exports = {
 	filterContainsLibrary: function(library){
 		return eval("/^" + library + "\\./");
 	},
+
+	filterContainsString: function(key){
+		return eval("/\\." + key + "\\./");
+	},
+
 	// Query para ordenar registros por quantidade de projetos, arquivos e ordem alfabética.
 	filterOrder: function(){
 		return {"value.OccurrenceProject": -1,

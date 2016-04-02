@@ -159,11 +159,14 @@
                       <label class="radio-inline checkbox-inline" ng-show="(formData.type === 'library')" id="gropLibraryLabel">
                         <input type="checkbox" id="gropLibraryButton" ng-model="show.group" ng-checked="show.group"> Group Libraries
                       </label>
+                      <label class="radio-inline checkbox-inline" ng-show="(formData.type === 'library')" id="containsLabel">
+                        <input type="checkbox" id="containsButton" ng-model="show.contains" ng-checked="show.contains"> Contains
+                      </label>
                     </div>
                   </div>
                 </div>
                 <div class="row" style="margin-top: 15px;">
-                  <div class="col-md-12">
+                  <div class="col-md-8">
                     <div class="form-group input-group">
                       <!-- Campo para o usuário informar as top apis que deseja visualizar.-->
                       <input type="text" class="form-control" placeholder="Enter list separed by comma ( , )"  ng-model="formData.listFilter">
@@ -177,6 +180,10 @@
                       </span>
                     </div>
                   </div>
+                  <div class="col-lg-4">
+                    <input type="text" ng-show="show.contains" class="form-control" placeholder="Enter string"  ng-model="formData.contains">
+                  </div>
+                  <!-- /.col-lg-6 -->
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
