@@ -1,5 +1,5 @@
 ##
-#	Cria a coleção outputBOA_api_group, onde os registros de popularidade são agrupados.
+#	Cria a coleção javaliApiGroup, onde os registros de popularidade são agrupados.
 #
 #	Exemplo da estrutura criada:
 # {
