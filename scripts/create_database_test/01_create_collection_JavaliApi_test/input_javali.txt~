@@ -1,0 +1,7 @@
+API[ProjectA][java.util.internal.Teste1] = 1
+API[ProjectA][java.util.internal.Teste2] = 1
+API[ProjectB][java.util.internal.Teste2] = 1
+API[ProjectB][java.util.List] = 1
+API[ProjectC][java.util.internal.Teste3] = 1
+API[ProjectC][java.util.List] = 1
+API[ProjectD][java.util.internal.Teste1] = 1
