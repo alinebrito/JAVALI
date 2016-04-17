@@ -1,0 +1,40 @@
+#
+#  Outputs:
+#        >> count_imports_java[] = value (int)
+#                value: How many Imports Java.
+#                
+#        >> count_files_java_valid_with_import[] = value (int)
+#                value: How many Java files have imports.   
+#  Aline Brito
+
+p : Project = input ; 
+
+#Counting Java files. 
+count_files_java_valid_with_import:  output sum of int; 
+
+#Counting imports.
+count_imports_java: output sum of int ; 
+
+visit (p, visitor { 
+    
+    before node: CodeRepository -> {
+	 
+	  #Latest snapshot, only Java files.
+	  snapshot := getsnapshot(node, "SOURCE_JAVA_JLS");
+	 
+	  foreach (i: int; def(snapshot[i])){
+	   	visit(snapshot[i]);
+	  }
+	  stop;
+	  
+    }
+    	 
+    before file: ASTRoot -> {
+        #if the file has import.
+        if(len(file.imports) > 0){
+            count_files_java_valid_with_import << 1;
+        }
+        
+        count_imports_java << len(file.imports);
+	}
+});

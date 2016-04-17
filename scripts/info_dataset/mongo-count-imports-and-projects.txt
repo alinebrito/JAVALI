@@ -1,0 +1,18 @@
+## Quantidade de projetos analizados:
+
+	>> db.getCollection('javaliApi').distinct('Project').length
+
+	RESULTADO: 263.425
+
+## Quantidade de imports distintos:
+
+	>> db.getCollection('javaliApiGroup').find({}).count()
+
+	RESULTADO: 4.780.469
+
+## Quantidade de imports em apenas um projeto:
+
+	>> db.getCollection('javaliApiGroup').find({'value.OccurrenceProject': 1}).count()
+
+	RESULTADO: 3.803.878
+
