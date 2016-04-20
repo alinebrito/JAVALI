@@ -118,7 +118,6 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 	//Criar gráfico conforme dados recebidos.
 	//Se não possui dados, exibe mensagem na tela.
 	$scope.processSuccess = function(data){
-		$scope.show.loading = false;
 		if(data && data.length > 0){
 			$scope.imports = data; 
 			utilTable.createTable($scope);
@@ -128,6 +127,7 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 			$scope.msg = utilTools.msgNotData();
 			utilTable.showMsg();
 		}
+		$scope.show.loading = false;
 	}
 
 	//Cria tabela conforme parâmetros selecionados na interface.
@@ -217,8 +217,9 @@ moduleCharts.service('utilTable', function() {
 					registry._id,
 					this.calcOccurrence(registry.value.OccurrenceProject, data), // percentual de ocorrência
 					registry.value.OccurrenceProject.toLocaleString(), //valor absoluto
-				] ).draw( false );
+				] );
 			}	
+			t.draw(false);
 			this.enabledButton('downloadTable');
 		}
 	}
