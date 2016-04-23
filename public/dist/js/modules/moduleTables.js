@@ -104,7 +104,7 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 
 	//Download dos dados em CSV.
 	$scope.dowloadTable = function(){
-			utilTable.dowloadTable($scope);
+		 utilTable.dowloadTable($scope);
 	}
 
 	//Exibe mensagem de erro na interface.
@@ -248,7 +248,9 @@ moduleCharts.service('utilTable', function() {
 
 	//Exporta tabela para um arquivo CSV.
 	this.dowloadTable = function(data){
+
 		var file = '';
+
 		//Insere título das colunas.
 		var title = ["Position", "Name", "Ocurrece by project (%)", "Number projects"];
 	 	file += title.join(",") + "\n";
@@ -258,11 +260,11 @@ moduleCharts.service('utilTable', function() {
 			var val = eval(i+1) + "," + list[i]._id + "," + this.calcOccurrence(list[i].value.OccurrenceProject, data) + "," + list[i].value.OccurrenceProject;
 			file += val + "\n";
 		}
+
 		//Exporta arquivo.
-	  var csvData = 'data:text/csv;charset=utf-8,' + encodeURIComponent(file);
-		var link = document.createElement('a');
-		link.setAttribute('href', csvData);
-		link.setAttribute('download', "popularityJavaApi.csv");
-		link.click();
+		var blob = new Blob([file], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, "popularityApis.csv");
+
 	}
+
 });
