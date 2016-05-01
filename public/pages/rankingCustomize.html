@@ -109,13 +109,13 @@
                 Select the <strong>Table Type</strong>:
                 <ul>
                   <li class="intructions">
-                    <strong>APIs</strong>: Occurrence of each Java API. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
+                    <strong>Interfaces</strong>: Option to see the use of interfaces. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
                   </li>
                   <!-- /.sub intructions -->
                   <li class="intructions">
-                    <strong>Libraries</strong>: Occurrence of library's APIs. Enter the libraries list separated by comma (example: java.util, java.io).
+                    <strong>Libraries</strong>: Option to see the most important interfaces per library. Enter the libraries list separated by comma (example: java.util, java.io).
                     <ul>
-                      <li><strong>Group Libraries</strong>: Mark option to group by libraries.
+                      <li><strong>Group Libraries</strong>: Option to see the use of libraries.
                       </li>
                     </ul>
                   </li>
@@ -151,7 +151,7 @@
                     <div id="filterLibrary">
                       <strong class='text-type'>Table Type:</strong>
                       <label class="radio-inline">
-                        <input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" ng-click='clearTableAndParameters()' ng-model="formData.type" value="api" checked> APIs 
+                        <input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" ng-click='clearTableAndParameters()' ng-model="formData.type" value="api" checked> Interfaces 
                       </label>
                       <label class="radio-inline">
                         <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" ng-model="formData.type" ng-click='clearTableAndParameters()' value="library"> Libraries
