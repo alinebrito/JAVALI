@@ -126,7 +126,7 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                <div class="row" id="teste">
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -135,10 +135,10 @@
     									    <div class="col-md-4">
     											<div class="form-group input-group">
     													<!-- Campo para o usuário informar as top apis que deseja visualizar.-->
-    				                                    <input type="number" class="form-control" min="0" step="1" data-bind="value:replyNumber" buttons="true" placeholder="Enter ranking size"  ng-model="formData.limit" value={{limit}} >
+    				                                    <input type="number" class="form-control" readonly placeholder="Ranking size"  ng-model="formData.size" >
     				                                    <span class="input-group-btn">
-    				                                        <button id="searchTopImports" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top"	title="Research ranking" ng-click="createTableTopApis()"><i class="fa fa-sort-amount-desc"></i>
-    				                                        </button>
+                                                            <button id="plusPosition" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="+ 5 positions" ng-click="plusPosition()" ><strong> +5 </strong>
+                                                            </button>
     				                                        <button id="clearTopImports" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top" 	
     														title="Delete table" ng-click="clearTable()" ><i class="fa fa-times"></i>
     				                                        </button>
@@ -151,19 +151,7 @@
                                             <div class="col-md-4" class="">
                                             </div>
                                             <!-- /.col-md-4 -->
-                                            <div class="col-md-4 text-right">
-                                                <div class="form-group input-group">
-                                                     <span class="input-group-btn">
-                                                        <button id="plusPosition" style="margin-left: 6px;" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="+ 5 positions" ng-click="plusPosition()" ><strong> +5 </strong>
-                                                        </button>
-                                                        <button id="minusPosition" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top"  
-                                                        title="- 5 positions" ng-click="minusPosition()" ><strong> -5 </strong>
-                                                        </button>
-                                                     </span>
-                                                 </div>
-                                            </div>
-                                            <!-- /.col-md-4 -->
-    									</div>
+                                        </div>
                                         <!-- ícone de loanding enquanto a busca é realizada.-->
                                         <p class="text-center" ng-show="show.loading">
                                             <span class="fa fa-spinner fa-spin fa-3x"></span>

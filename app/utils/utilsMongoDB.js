@@ -9,6 +9,7 @@ var utils = require('./utilsTools');
 var dbName = 'JAVALI';
 var nameCollectionApi = "javaliApiGroup";
 var nameCollectionLibrary = "javaliApi";
+var nameCollectionTopApis = "javaliTopApis";
 
 var dbUrl = host + dbName;
 var db = null;
@@ -42,6 +43,9 @@ module.exports = {
 	getCollectionApi: function(){
 		return db.collection(nameCollectionApi);
 	},
+	getCollectionTopApis: function(){
+		return db.collection(nameCollectionTopApis);
+	},
 	// Query para eliminar imports quem contém .* ao final da consulta.
 	filterNotAsterisk: function(){
 			return {'$not': /\.\*$/}
@@ -61,5 +65,10 @@ module.exports = {
 			"value.OccurrenceFile": -1,
 			"_id": 1
 		}
+	},
+
+	// Query para ordenar registros pelo indice
+	filterOrderByIndex: function(){
+		return {"index": 1}
 	}
 }

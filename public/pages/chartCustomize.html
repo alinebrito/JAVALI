@@ -146,10 +146,10 @@
     										<div id="filterLibrary">
                                                 <strong class='text-type'>Chart Type:</strong>
     											<label class="radio-inline">
-    												<input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" value="api"  ng-model="formData.type"> APIs 
+    												<input type="radio" ng-click="clearChartAndParameters()" name="optionsRadiosFilterLibrary" id="filterApiButton" value="api"  ng-model="formData.type"> APIs 
     											</label>
                                                 <label class="radio-inline">
-                                                    <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" value="library" ng-model="formData.type"> Libraries
+                                                    <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" value="library" ng-click="clearChartAndParameters()" ng-model="formData.type"> Libraries
                                                 </label>
                                                 <!-- Quando opção Libraries assinalada, exibido para agrupar. -->
                                                 <label class="radio-inline checkbox-inline" ng-show="formData.type === 'library'" id="gropLibraryLabel">
@@ -157,21 +157,6 @@
                                                 </label>
      										</div>
     									</div>
-                                        <!-- Menu com quantidade máxima de colunas. Exibido para a opção Libraries, sem agrupar. -->
-                                        <div class="col-md-6">
-                                                <div id="maxDataDiv" ng-show="formData.type === 'library' && !show.group">
-                                                    <label class="radio-inline">
-                                                        <input type="radio"  name="maxData" id="maxData10" ng-model="formData.columns" value=5 checked> 5 Columns
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" name="maxData" id="maxData15" ng-model="formData.columns" value=10 > 10 Columns
-                                                    </label>
-                                                    <label class="radio-inline">
-                                                        <input type="radio" name="maxData" id="maxData15" ng-model="formData.columns" value=15 > 15 Columns
-                                                    </label>
-                                                </div>
-                                        </div>
-                                        <!-- /.col-md-12 -->
     								</div>
                                     <!-- Campo para usuário informar as APIs que deseja buscar -->
     								<div class="row" style="margin-top: 15px;">
@@ -180,8 +165,10 @@
     												<!-- Campo para o usuário informar as top apis que deseja visualizar.-->
     			                                    <input type="text" class="form-control" placeholder="Enter list separed by comma ( , )" ng-model="formData.listFilter" >
     			                                    <span class="input-group-btn">
-    			                                        <button id="createChart" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="Generate chart" ng-click="createCustomizesChart()" ><i class="fa fa-bar-chart-o" ></i>
+    			                                        <button id="createChart" class="btn btn-primary" ng-show="(formData.type === 'api') || (show.group)" type="button" data-toggle="tooltip" data-placement="top" title="Generate chart" ng-click="createCustomizesChart()" ><i class="fa fa-bar-chart-o" ></i>
     			                                        </button>
+                                                        <button id="plusPosition" class="btn btn-primary" type="button" ng-show="((formData.type) === 'library' && (!show.group))" data-toggle="tooltip" data-placement="top"  title="+ 5 positions" ng-click="createCustomizesChart()" ><strong> +5 </strong>
+                                                        </button>
     			                                        <button id="clearChart" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top"    
                                                         title="Delete chart" ng-click="removeChart()" ><i class="fa fa-times"></i>
                                                         </button>

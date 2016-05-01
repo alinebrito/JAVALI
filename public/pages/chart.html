@@ -137,9 +137,9 @@
 							       <div class="col-md-4">
                                         <div class="form-group input-group">
                                             <!-- Campo para o usuário informar as top apis que deseja visualizar.-->
-                                            <input id="inputLimit" type="number" class="form-control" min="0" step="1" data-bind="value:replyNumber" buttons="true" placeholder="Enter ranking size" ng-model="formData.limit">
+                                            <input type="number" class="form-control" readonly placeholder="Ranking size"  ng-model="formData.size" >
                                             <span class="input-group-btn">
-                                                <button id="createChart" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top"  title="Generate chart" ng-click="createChartTopApis()" ><i class="fa fa-sort-amount-desc"></i>
+                                                <button id="plusPosition" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="+ 5 positions"  ng-click="plusPosition()" ><strong> +5 </strong>
                                                 </button>
                                                 <button id="clearChart" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top"  
                                                 title="Delete chart" ng-click="removeChart()" ><i class="fa fa-times"></i>
@@ -151,18 +151,6 @@
                                         </div>
                                     </div>
                                     <div class="col-md-4" class="">
-                                    </div>
-                                    <!-- /.col-md-4 -->
-                                    <div class="col-md-4 text-right">
-                                        <div class="form-group input-group">
-                                             <span class="input-group-btn">
-                                                <button id="plusPosition" style="margin-left: 6px;" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="+ 5 positions"  ng-click="plusPosition()" ><strong> +5 </strong>
-                                                </button>
-                                                <button id="minusPosition" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top"  
-                                                title="- 5 positions" ng-click="minusPosition()" ><strong> -5 </strong>
-                                                </button>
-                                             </span>
-                                         </div>
                                     </div>
                                     <!-- /.col-md-4 -->
 								</div>

@@ -151,13 +151,13 @@
                     <div id="filterLibrary">
                       <strong class='text-type'>Table Type:</strong>
                       <label class="radio-inline">
-                        <input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" ng-model="formData.type" value="api" checked> APIs 
+                        <input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" ng-click='clearTableAndParameters()' ng-model="formData.type" value="api" checked> APIs 
                       </label>
                       <label class="radio-inline">
-                        <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" ng-model="formData.type" value="library"> Libraries
+                        <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" ng-model="formData.type" ng-click='clearTableAndParameters()' value="library"> Libraries
                       </label>
                       <label class="radio-inline checkbox-inline" ng-show="(formData.type === 'library')" id="gropLibraryLabel">
-                        <input type="checkbox" id="gropLibraryButton" ng-model="show.group" ng-checked="show.group"> Group Libraries
+                        <input type="checkbox" id="gropLibraryButton"  ng-model="show.group" ng-checked="show.group"> Group Libraries
                       </label>
                       <label class="radio-inline checkbox-inline" ng-show="(formData.type === 'library')" id="containsLabel">
                         <input type="checkbox" id="containsButton" ng-model="show.contains" ng-checked="show.contains"> Contains
@@ -171,7 +171,9 @@
                       <!-- Campo para o usuário informar as top apis que deseja visualizar.-->
                       <input type="text" class="form-control" placeholder="Enter list separed by comma ( , )"  ng-model="formData.listFilter">
                       <span class="input-group-btn">
-                        <button id="searchList" class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top"	title="Research" ng-click="createCustomizesTable()" ><i class="fa fa-sort-amount-desc"></i>
+                        <button id="searchList" class="btn btn-primary" type="button" ng-show="(formData.type === 'api') || (show.group)" data-toggle="tooltip" data-placement="top"	title="Research" ng-click="createCustomizesTable()" ><i class="fa fa-sort-amount-desc"></i>
+                        </button>
+                        <button id="plusPosition" class="btn btn-primary" type="button" ng-show="((formData.type) === 'library' && (!show.group))" data-toggle="tooltip" data-placement="top"  title="+ 5 positions" ng-click="createCustomizesTable()" ><strong> +5 </strong>
                         </button>
                         <button id="clearList" style="margin-left: 6px;" class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top" title="Clear table" ng-click="clearTable()" ><i class="fa fa-times"></i>
                         </button>

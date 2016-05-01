@@ -14,6 +14,8 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 	$scope.formData.listFilter = "";
 	$scope.formData.type = "api";
 	$scope.formData.columns = 5;
+	$scope.formData.limit = 0;
+	$scope.formData.listFilterOld = "";
 
 	$scope.show = {};
 	$scope.show.group = false;	//Exibe opção para agrupar bibliotecas.
@@ -35,6 +37,11 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 		utilChart.removeChart();
 	}
 
+	$scope.clearChartAndParameters = function(){
+		$scope.formData.listFilter = "";
+		utilChart.removeChart();
+	}
+
 	//Exibe mensagem de erro na interface.
 	$scope.processError = function(){
 		utilChart.removeChart();
@@ -48,7 +55,10 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 	$scope.processSuccess = function(data){
 		$scope.show.loading = false;
 		if(data && data.length > 0){
-			$scope.imports = data; 
+			data.forEach(function(val, i) {
+					$scope.imports.push(val); 
+			});
+			//$scope.imports = data; 
 			utilChart.createChart($scope);
 		}
 		else {
@@ -61,10 +71,11 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 	//Cria gráfico conforme parâmetros selecionados na interface.
 	$scope.createCustomizesChart = function() {
 		$scope.show.loading = true;
-		utilChart.removeChart(); //Limpa o gráfico existente.
+		
 		if($scope.formData.type === "api"){ //Para opção "APIs".
 				factoryRankings.findListApi($scope.formData)
 				.success(function(data) {
+					$scope.imports = [];
 					$scope.processSuccess(data);
 				})
 				.error(function(data, status) {
@@ -73,6 +84,7 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 		}
 		else { //Para opção "Libraries".
 			if ($scope.show.group) { //Se opção "Group" assinalada.
+				$scope.imports = [];
 				factoryRankings.findListLibrary($scope.formData)
 				.success(function(data) {
 					$scope.processSuccess(data);
@@ -81,6 +93,13 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 					$scope.processError();
 				});
 			} else { //Sem a opçõa "Group".
+					//Se as opções de busca mudaram, ranking é zerado.
+					if($scope.formData.listFilter != $scope.formData.listFilterOld){
+							$scope.imports = [];
+					}
+					$scope.formData.limit = $scope.imports.length;
+					$scope.formData.listFilterOld = $scope.formData.listFilter;
+				
 				factoryRankings.findListApiByLibrary($scope.formData)
 				.success(function(data) {
 					$scope.processSuccess(data);
@@ -108,7 +127,8 @@ moduleCharts.controller('controllerTopCharts', function($scope, factoryRankings,
 		$scope.allProjects = null;
 		$scope.imports 	= [];
 		$scope.formData = {};
-		$scope.formData.limit = 5;
+		$scope.formData.limit = 0;
+		$scope.formData.size = 5;
 		$scope.show = {};
 		$scope.show.loading = false;
 		
@@ -124,6 +144,9 @@ moduleCharts.controller('controllerTopCharts', function($scope, factoryRankings,
 
 		//Remove gráfico.
     $scope.removeChart = function(){
+    	$scope.formData.size = 0;
+    	$scope.formData.limit = 0;
+    	$scope.imports 	= [];
 			utilChart.removeChart();
 		}
 
@@ -134,7 +157,10 @@ moduleCharts.controller('controllerTopCharts', function($scope, factoryRankings,
 			factoryRankings.findTopApi($scope.formData) 
 			.success(function(data){
 				if(data && data.length > 0){
-					$scope.imports = data; 
+					data.forEach(function(val, i) {
+						 $scope.imports.push(val); 
+					});
+					
 					utilChart.createChart($scope);
 				}
 				else{
@@ -153,15 +179,8 @@ moduleCharts.controller('controllerTopCharts', function($scope, factoryRankings,
 		//Adiciona 5 posições ao ranking.
 		$scope.plusPosition  = function(){
 			$scope.formData.limit += 5;
+			$scope.formData.size += 5;
 			$scope.createChartTopApis();
-		}
-
-		//Remove as 5 últimas posições do ranking.
-		$scope.minusPosition  = function(){
-			if($scope.formData.limit > 5){
-				$scope.formData.limit -= 5;
-				$scope.createChartTopApis();
-			}
 		}
 
 		//Download do gráfico.
@@ -218,7 +237,7 @@ moduleCharts.service('utilChart', function() {
 
 	// Criar uma gráfico de barras conforme a lista de APIs recebida.
 	this.createChart = function (data) {
-		
+
 		this.removeChart(); //Limpa o gráfico existente.
 		var list = data.imports;
 
@@ -238,11 +257,13 @@ moduleCharts.service('utilChart', function() {
 					var registry = list[i];
 
 					//Calcula a porcentagem da ocorrência, 3 casas decimais.
-					ocurrence = this.calcOccurrence(registry.value.OccurrenceProject, data); // percentual de ocorrência
-			
+					//ocurrence = this.calcOccurrence(registry.value.OccurrenceProject, data); // percentual de ocorrência
+					var p = registry.percentage ? registry.percentage.toFixed(3) : this.calcOccurrence(registry.value.OccurrenceProject, data);
+
 					var value = {};
 					value.import = registry._id;
-					value.ocurrence = ocurrence;
+					value.ocurrence = p;
+
 
 					listGraph.push(value);
 					listLabel.push(labelDefault);
@@ -268,6 +289,7 @@ moduleCharts.service('utilChart', function() {
 
 			this.enabledButton('saveChart');
 		}
+				
 	}
 
 	//Remove o gráfico exibido e/ou mensagens.

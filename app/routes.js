@@ -2,14 +2,17 @@ var utilsDB = require('./utils/utilsMongoDB');
 var utils = require('./utils/utilsTools');
 var config = require('./config');
 
-// Retorna os  "limit" top imports que são API's, ou seja, não contém .* ao final.
-// Registros são ordenados por quantidade de projetos, arquivos e ordem alfabética.
-// @limit: quantidade de registros retornados, ou seja, tamanho do ranking.
+var size = 5; //quantidade de regitros retornados.
+
+// Retorna as 5 top interfaces, a partir do limit.
+// Registros são ordenados pelo índice, e 
+// @limit: próxima posição a ser lida no ranking.
 var findTopApi = function(res, limit){
-	utilsDB.connectMongoDB(function(){
-		utilsDB.getCollectionApi().find({ '_id': utilsDB.filterNotAsterisk()})
-		.sort(utilsDB.filterOrder())
-		.limit(limit)
+	 	utilsDB.connectMongoDB(function(){
+		utilsDB.getCollectionTopApis().find({})
+		.sort(utilsDB.filterOrderByIndex())
+		.skip(limit)
+		.limit(size) //retorna 5 regitros
 		.toArray(function(err, resp){
 			if(err){
 				utils.logError(err);
@@ -43,7 +46,7 @@ var findListApi = function(res, list){
 // a uma da libraries contidas na lista recebida como parâmetro. Registros ordenados  por quantidade 
 // de 	projetos, arquivos e ordem alfabética. 
 // @list: Exemplo: ["java.util", "org.apache"]
-var findListApiByLibrary = function(res, list, cols){
+var findListApiByLibrary = function(res, list, s){
 	utilsDB.connectMongoDB(function(){
 		//Adiciona uma expressão para cada import recebido.
 		var or = {}
@@ -59,7 +62,8 @@ var findListApiByLibrary = function(res, list, cols){
 		//Executa a query.
 		utilsDB.getCollectionApi().find(query)
 		.sort(utilsDB.filterOrder())
-		.limit(cols)
+		.skip(s)
+		.limit(size)
 		.toArray(function(err, resp){
 			if(err){
 				utils.logError(err);
@@ -114,7 +118,7 @@ var findListLibrary = function(res, list){
 // a uma da libraries contidas na lista recebida como parâmetro, e possua a chave
 // recebida. Registros ordenados  por quantidade de 	projetos, arquivos e ordem alfabética. 
 // @list: Exemplo: ["java.util", "org.apache"]
-var findListApiByLibraryAndString = function(res, list, key){
+var findListApiByLibraryAndString = function(res, list, s, key){
 	utilsDB.connectMongoDB(function(){
 		//Adiciona uma expressão para cada import recebido.
 		var or = {}
@@ -132,6 +136,8 @@ var findListApiByLibraryAndString = function(res, list, key){
 		//Executa a query.
 		utilsDB.getCollectionApi().find(query)
 		.sort(utilsDB.filterOrder())
+		.skip(s)
+		.limit(size)
 		.toArray(function(err, resp){
 			if(err){
 				utils.logError(err);
@@ -197,11 +203,15 @@ module.exports = function(app) {
 		}
 	});
 
-	app.post('/api/findListApiByLibrary',  function(req, res) {
+	app.post('/api/findListApiByLibrary', function(req, res) {
 		if(req.body.listFilter != null){
 			var list = utils.formartList(req.body.listFilter);
-			var cols = Number(req.body.columns);
-			findListApiByLibrary(res, list, cols);
+			var limit = Number(req.body.limit)
+		  var limitQuery = 0;
+		  if(limit != null){
+		  	limitQuery = limit;
+		  }
+			findListApiByLibrary(res, list, limitQuery);
 		}
 	});
 
@@ -216,7 +226,12 @@ module.exports = function(app) {
 		if(req.body.listFilter != null){
 			var list = utils.formartList(req.body.listFilter);
 			var key = req.body.contains;
-			findListApiByLibraryAndString(res, list, key);
+			var limit = Number(req.body.limit)
+		  var limitQuery = 0;
+		  if(limit != null){
+		  	limitQuery = limit;
+		  }
+			findListApiByLibraryAndString(res, list, limitQuery, key);
 		}
 	});
 
