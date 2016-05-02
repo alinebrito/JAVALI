@@ -84,32 +84,65 @@ var findListApiByLibrary = function(res, list, s){
 //			Projeto C: org.apache.*
 //			Projeto D: java.util.*.
 var findListLibrary = function(res, list){
-	var result = [];
-	list.forEach(function(library, index){
-		utilsDB.connectMongoDB(function(){
-			utilsDB.getCollectionLibrary().aggregate([
-	     { $match: {"Import" : utilsDB.filterContainsLibrary(library) } },
-	     { $group: { _id: "$Project"}}
-				]).toArray(function(err, resp){
-				if(err){
-					utils.logError(err);
-				}
-				else{
-					//Formata registro.
-					var registry = {};
-					registry._id = library;
-					registry['value'] = {"OccurrenceProject": Number(resp.length)};
+		
+	var result = []; //resultado retornadado.
+	var resultProcessed = []; //Bibliotecas encontradas na tabela processada.
+	var resultNotProcessed = []; //Bibliotecas encontradas na tabela de dados brutos.
+	
+	utilsDB.connectMongoDB(function(){
+		utilsDB.getCollectionLibraryProccessed().find({"_id": {$in: list} })
+		.sort(utilsDB.filterOrder())
+		.toArray(function(err, r){
+			//Se todos os regitros foram encontrados na coleção processada,
+			//retorna os resultados.
+			if(r.length === list.length ){
+				res.json(r);//retorna resultado.
+			}
 
-					//Insere registro na lista.
-					result.push(registry);
-
-					//Após consultar todas as libraries da lista ordena registros.
-					if(result.length === list.length){
-						result = utils.sortByOccurrenceProject(result); //ordena registros.
-						res.json(result);//retorna resultado.
+			//Caso contrário, busca a biblioteca entre os dados brutos.
+			else{
+					//identifica bibliotecas que possuem resultado processado.
+					for(var i=0; i<r.length; i++){
+						resultProcessed.push(r[i]._id)
+						result.push(r[i]);
 					}
-				}  
-			});
+
+					//identifica bibliotecas que não possuem resultado processado.
+					for(var i=0; i<list.length; i++){
+							if(!(resultProcessed.indexOf(list[i]) > -1)){
+								resultNotProcessed.push(list[i]);
+							}
+					}
+
+					//Consulta as bibliotecas não processadas na base de dados brutos.
+					resultNotProcessed.forEach(function(library, index){
+						utilsDB.connectMongoDB(function(){
+							utilsDB.getCollectionLibrary().aggregate([
+					     { $match: {"Import" : utilsDB.filterContainsLibrary(library) } },
+					     { $group: { _id: "$Project"}}
+								]).toArray(function(err, resp){
+								if(err){
+									utils.logError(err);
+								}
+								else{
+									//Formata registro.
+									var registry = {};
+									registry._id = library;
+									registry['value'] = {"OccurrenceProject": Number(resp.length)};
+
+									//Insere registro na lista.
+									result.push(registry);
+
+									//Após consultar todas as libraries da lista ordena registros.
+									if(result.length === list.length){
+										result = utils.sortByOccurrenceProject(result); //ordena registros.
+										res.json(result);//retorna resultado.
+									}
+								}  
+							});
+						});
+					});
+				}
 		});
 	});
 }

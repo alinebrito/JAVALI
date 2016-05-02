@@ -10,6 +10,7 @@ var dbName = 'JAVALI';
 var nameCollectionApi = "javaliApiGroup";
 var nameCollectionLibrary = "javaliApi";
 var nameCollectionTopApis = "javaliTopApis";
+var nameCollectionLibraryProccessed= "javaliLibraries";
 
 var dbUrl = host + dbName;
 var db = null;
@@ -39,6 +40,9 @@ module.exports = {
 	},
 	getCollectionLibrary: function(){
 		return db.collection(nameCollectionLibrary);
+	},
+	getCollectionLibraryProccessed: function(){
+		return db.collection(nameCollectionLibraryProccessed);
 	},
 	getCollectionApi: function(){
 		return db.collection(nameCollectionApi);

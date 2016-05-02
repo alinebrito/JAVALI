@@ -301,13 +301,14 @@ moduleCharts.service('utilTable', function() {
 			for (i in list) {
 				index++;
 				var registry = list[i];
-				var p = registry.percentage ? registry.percentage.toFixed(3) : this.calcOccurrence(registry.value.OccurrenceProject, data);
+				var occurrenceProject = registry.value ? registry.value.OccurrenceProject : 0;
+				var p = registry.percentage ? registry.percentage.toFixed(3) : this.calcOccurrence(occurrenceProject, data);
 				//console.log(registry)
 				t.row.add( [
 					index,
 					registry._id,
 					p,
-					registry.value.OccurrenceProject.toLocaleString(), //valor absoluto
+					occurrenceProject.toLocaleString(), //valor absoluto
 				]);
 			}	
 			t.draw(false);
