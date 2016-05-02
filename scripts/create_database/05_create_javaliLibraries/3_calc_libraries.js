@@ -4,9 +4,9 @@ var allProject = 263425;
 var skip = 0;
 var limit = 10;
 
-for(var i = 0; i < 96; i++){
+for(var i = 0; i < 26; i++){
     print(limit + "--" + skip);
-    db.getCollection('javaliLibraries_PENDENTE_JAVAX').find({'percentage': null}).sort({"index": 1}).limit(limit).skip(skip).forEach(function(val){
+    db.getCollection('javaliLibraries_pendentes_entre_0_2000').find({'percentage': null}).sort({"index": 1}).limit(limit).skip(skip).forEach(function(val){
             var library = val._id;
             library = library.split("$").join("\\$");
             print(val.index);
@@ -16,12 +16,12 @@ for(var i = 0; i < 96; i++){
 
             var resultado = {};
             resultado.cod = val.index;
-            resultado._id = val.import;
+            resultado._id = val._id;
             resultado.value = {};
             resultado.value.OccurrenceProject = resp;
             resultado.percentage = p;
 
-            db.getCollection('javaliLibraries_CALCULADO_ANDROID').insert(resultado);
+            db.getCollection('javaliLibraries_CALCULADO_ENTRE_0_2000').insert(resultado);
     });
 
     skip += 10;

@@ -765,7 +765,7 @@ var domins = [
         {'name': 'gov'}
 ]
 
-db.getCollection('javaliApiGroup').find({}).forEach(function(interface){
+db.getCollection('javaliApiGroup').find({}).limit(2000).skip(0).sort({"value.OccurrenceProject": -1}).forEach(function(interface){
 
     var listLibraries =  interface._id.split(".");
     
@@ -781,7 +781,7 @@ db.getCollection('javaliApiGroup').find({}).forEach(function(interface){
 
         if(isDomin.length == 0){
             print(library)
-            db.getCollection('javaliLibraries').update({"_id" : library}, {"_id" : library}, {upsert:true});
+            db.getCollection('javaliLibraries_top_0_ate_2000').update({"_id" : library}, {"_id" : library}, {upsert:true});
         }
         library += ".";
     }
