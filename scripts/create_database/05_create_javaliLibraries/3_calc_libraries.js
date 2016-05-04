@@ -1,12 +1,12 @@
 use JAVALI
 
 var allProject = 263425;
-var skip = 0;
+var skip = 326;
 var limit = 10;
 
-for(var i = 0; i < 26; i++){
+for(var i = 0; i < 23; i++){
     print(limit + "--" + skip);
-    db.getCollection('javaliLibraries_pendentes_entre_0_2000').find({'percentage': null}).sort({"index": 1}).limit(limit).skip(skip).forEach(function(val){
+    db.getCollection('javaliLibraries_PENDENTE_COM_ANDROID').find({'percentage': null}).sort({"index": 1}).limit(limit).skip(skip).forEach(function(val){
             var library = val._id;
             library = library.split("$").join("\\$");
             print(val.index);
@@ -21,7 +21,7 @@ for(var i = 0; i < 26; i++){
             resultado.value.OccurrenceProject = resp;
             resultado.percentage = p;
 
-            db.getCollection('javaliLibraries_CALCULADO_ENTRE_0_2000').insert(resultado);
+            db.getCollection('javaliLibraries_CALCULADO_COM_ANDROID').insert(resultado);
     });
 
     skip += 10;

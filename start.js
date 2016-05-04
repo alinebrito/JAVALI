@@ -3,7 +3,7 @@ var express  = require('express');
 var app      = express(); 		
 
 // set the port			
-var port = 8080; 
+var port = 3000 || process.env.OPENSHIFT_NODEJS_PORT; 
 
 //Reads a form's input, javascript object accessible through `req.body` in routes.js								
 var bodyParser = require('body-parser');

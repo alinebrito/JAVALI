@@ -3,7 +3,7 @@
 use JAVALI
 
 
-db.getCollection('javaliApiGroup').find({"_id": /^org.apache\./, "value.OccurrenceProject": {$gte: 50}}).forEach(function(interface){
+db.getCollection('javaliApiGroup').find({"_id": /^com.android\./, "value.OccurrenceProject": {$gte: 50}}).forEach(function(interface){
 
     var listLibraries =  interface._id.split(".");
     
@@ -15,7 +15,7 @@ db.getCollection('javaliApiGroup').find({"_id": /^org.apache\./, "value.Occurren
 
         if(library != "org"){
             print(library)
-            db.getCollection('javaliLibraries_PENDENTE_ORG_APACHE').update({"_id" : library}, {"_id" : library}, {upsert:true});
+            db.getCollection('javaliLibraries_PENDENTE_COM_ANDROID').update({"_id" : library}, {"_id" : library}, {upsert:true});
         }
         library += ".";
     }
