@@ -2,13 +2,28 @@
   "name": "JAVALI",
   "version": "1.0.0",
   "description": "A tool that allows to compare and to categorize Java APIs",
-  "main": "server.js",
-  "author": "Aline Brito",
+  "author": {
+    "name": "Aline Brito",
+    "email": "nbrito.aline@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alinebrito/JAVALI"
+  },
+
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+
   "dependencies": {
     "express": "~4.6.1",
     "body-parser": "~1.4.3",
     "method-override": "~2.1.1",
     "mongodb": "~2.0.50",
     "line-reader": "~0.3.0"
-  }
+  },
+
+  "private": true,
+  "main": "server.js"
 }

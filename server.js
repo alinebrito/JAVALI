@@ -3,10 +3,10 @@
 	var app      = express(); 		
 
 	// set the port.		
-	var port = 3000 || process.env.OPENSHIFT_NODEJS_PORT; 
+	var port = 8080 || process.env.OPENSHIFT_NODEJS_PORT; 
 
 	// set the ip.	
-	var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+	var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 
 	//Reads a form's input, javascript object accessible through `req.body` in routes.js								
 	var bodyParser = require('body-parser');
@@ -24,6 +24,9 @@
 
 	//Start with 'node server.js'
 	app.listen(port, ipaddress, function() {
+							if(!ipaddress){
+								ipaddress = '127.0.0.1';
+							}
 	            console.log('%s: JAVALI server started on %s:%d ...',
 	                        Date(Date.now() ), ipaddress, port);
 	});
