@@ -44,7 +44,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"> <i class="fa fa-clipboard fa-fw"></i> JAVALI </a>
+                    <a class="navbar-brand" href="index.html"> <i class="fa fa-fw"><img style="max-width:20px; margin-bottom: 10px;" src="../dist/images/logo-01.png"></i> JAVALI </a>
                 </div>
                 <!-- /.navbar-header -->
                 <ul class="nav navbar-top-links navbar-right">
@@ -65,7 +65,7 @@
                                        <a href="ranking.html"></i> Top APIs </a>
                                     </li>
                                     <li>
-                                        <a href="rankingCustomize.html"> Customizes Rankings </a>
+                                        <a href="rankingCustomize.html"> Customize Rankings </a>
                                     </li>
                                 </ul>
                             </li>
@@ -76,7 +76,7 @@
                                        <a href="chart.html"> Top APIs Charts</a>
                                     </li>
                                     <li>
-                                       <a href="chartCustomize.html"> Customizes Rankings Charts</a>
+                                       <a href="chartCustomize.html"> Customize Rankings Charts</a>
                                     </li>
                                 </ul>
                             </li>
@@ -102,13 +102,13 @@
                                     Select the <strong>Chart Type</strong>:
                                     <ul>
                                         <li class="intructions">
-                                         <strong>Interfaces</strong>: Option to see the use of interfaces. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
+                                         <strong>Interfaces</strong>: Option to analyze the use of interfaces. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
                                         </li>
                                         <!-- /.sub intructions -->
                                         <li class="intructions">
-                                             <strong>Libraries</strong>: Option to see the most important interfaces per library. Enter the libraries list separated by comma (example: java.util, java.io).
+                                             <strong>Libraries</strong>: Option to analyze the most important interfaces per library. Enter the libraries list separated by comma (example: java.util, java.io).
                                              <ul>
-                                                 <li><strong>Group Libraries</strong>: Option to see the use of libraries.
+                                                 <li><strong>Group Libraries</strong>: Option to analyze the use of libraries.
                                                  </li>
                                              </ul>
                                         </li>
@@ -203,8 +203,8 @@
                                                             </div>
                                                          <div class="panel panel-default text-center">
                                                             <div class="panel-body label-custom">
-                                                                <strong>y-axis:</strong> Percentage of occurrence by project. <br>
-                                                                <strong>All Java projects (100%): </strong>{{ allProjects.toLocaleString() }}
+                                                                <strong>y-axis:</strong> Occurrence per project <br>
+                                                                <strong>Total projects:: </strong>{{ allProjects.toLocaleString() }}
                                                             </div>
                                                             <!-- /.panel-body -->
                                                         </div>
