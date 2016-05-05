@@ -3,7 +3,7 @@
 	var app      = express(); 		
 
 	// set the port.		
-	var port = 8080 || process.env.OPENSHIFT_NODEJS_PORT; 
+	var port = 8088 || process.env.OPENSHIFT_NODEJS_PORT; 
 
 	// set the ip.	
 	var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
