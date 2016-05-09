@@ -19,5 +19,16 @@ module.exports = {
 	//Imprime log de informação.
 	logInfo: function(msg){
 		console.log("\n" + new Date() + " INFO: " + msg);
+	},
+
+	//Remove elementos duplicados na lista.
+	removeDuplicate: function(list){
+			var result = [];
+			list.forEach(function(item) {
+			     if(result.indexOf(item) < 0) {
+			         result.push(item);
+			     }
+			});
+			return result;
 	}
 }

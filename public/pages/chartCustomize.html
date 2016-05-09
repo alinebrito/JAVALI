@@ -56,13 +56,13 @@
                         <ul class="nav" id="side-menu">
 
                             <li>
-                                <a href="index.html"><i class="fa fa-database fa-fw"></i> Dataset </a>
+                                <a href="index.html"><i class="fa fa-database fa-fw"></i> Home </a>
                             </li>
                             <li>
                                  <a href="#"><i class="fa fa-signal fa-fw"></i> Java API Popularity<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                       <a href="ranking.html"></i> Top APIs </a>
+                                       <a href="ranking.html"></i> Top Interfaces </a>
                                     </li>
                                     <li>
                                         <a href="rankingCustomize.html"> Customize Rankings </a>
@@ -73,7 +73,7 @@
                                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Graphical Analysis <span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
                                     <li>
-                                       <a href="chart.html"> Top APIs Charts</a>
+                                       <a href="chart.html"> Top Interfaces Charts</a>
                                     </li>
                                     <li>
                                        <a href="chartCustomize.html"> Customize Rankings Charts</a>
@@ -96,38 +96,38 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="well well-lg text-justify">
-                            <strong>Instructions:</strong>
-                            <ul>
-                                <li class="intructions">
-                                    Select the <strong>Chart Type</strong>:
+                            <strong>Help:</strong>
+                                <ul>
+                                  <li class="intructions">
+                                     Select the <strong>Granularity</strong> level:
                                     <ul>
-                                        <li class="intructions">
-                                         <strong>Interfaces</strong>: Option to analyze the use of interfaces. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
-                                        </li>
-                                        <!-- /.sub intructions -->
-                                        <li class="intructions">
-                                             <strong>Libraries</strong>: Option to analyze the most important interfaces per library. Enter the libraries list separated by comma (example: java.util, java.io).
-                                             <ul>
-                                                 <li><strong>Group Libraries</strong>: Option to analyze the use of libraries.
-                                                 </li>
-                                             </ul>
-                                        </li>
-                                        <!-- /.sub intructions -->
+                                      <li class="intructions">
+                                        <strong>Interfaces</strong>: Enter a list of interfaces separated by comma (example: java.util.List, java.util.ArrayList).
+                                      </li>
+                                      <!-- /.sub intructions -->
+                                      <li class="intructions">
+                                        <strong>Libraries</strong>: Enter a list of libraries separated by comma (example: java.util, java.io).
+                                        <ul>
+                                          <li><strong>Group Libraries</strong>: Option to group the queried libraries.
+                                          </li>
+                                        </ul>
+                                      </li>
+                                      <!-- /.sub intructions -->
                                     </ul>
-                                </li>
-                                <li class="intructions">
-                                    Then, press the <strong>Generate chart</strong> button. 
-                                </li>
-                                <!-- /.intructions -->
-                                <li class="intructions">
-                                    Press the <strong>Delete chart</strong> button to remove chart. 
-                                </li>
-                                <!-- /.intructions -->
-                                <li class="intructions">
-                                    Press the <strong>Download chart</strong> button to download chart in PDF format. 
-                                </li>
-                                <!-- /.intructions -->
-                            </ul>
+                                  </li>
+                                  <li class="intructions">
+                                    Then, press the blue button to perform the query.
+                                  </li>
+                                  <!-- /.intructions -->
+                                  <li class="intructions">
+                                    Press the red button to remove data chart.
+                                  </li>
+                                  <!-- /.intructions -->
+                                  <li class="intructions">
+                                    Press the green button to download data in PDF format.
+                                  </li>
+                                  <!-- /.intructions -->
+                                </ul>
                         </div>
                         <!-- /.well -->
                     </div>
@@ -144,7 +144,7 @@
                                         <!-- /.col-md-2 -->
     									<div class="col-md-6">
     										<div id="filterLibrary">
-                                                <strong class='text-type'>Chart Type:</strong>
+                                                <strong class='text-type'>Granularity:</strong>
     											<label class="radio-inline">
     												<input type="radio" ng-click="clearChartAndParameters()" name="optionsRadiosFilterLibrary" id="filterApiButton" value="api"  ng-model="formData.type"> Interfaces 
     											</label>
@@ -163,7 +163,7 @@
     									<div class="col-md-12">
     										<div class="form-group input-group">
     												<!-- Campo para o usuário informar as top apis que deseja visualizar.-->
-    			                                    <input type="text" class="form-control" placeholder="Enter list separed by comma ( , )" ng-model="formData.listFilter" >
+    			                                    <input type="text" class="form-control" placeholder="Please, enter a list of interfaces/APIs separated by comma" ng-model="formData.listFilter" >
     			                                    <span class="input-group-btn">
     			                                        <button id="createChart" class="btn btn-primary" ng-show="(formData.type === 'api') || (show.group)" type="button" data-toggle="tooltip" data-placement="top" title="Generate chart" ng-click="createCustomizesChart()" ><i class="fa fa-bar-chart-o" ></i>
     			                                        </button>

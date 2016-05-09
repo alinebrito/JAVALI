@@ -26,9 +26,9 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 	.success(function(data){
 		if(data){
 			$scope.allProjects = data.allProjects;
-			$scope.imports 	= [data.top1, data.top3];
-			$scope.formData.listFilter = data.top1._id + ", " + data.top3._id;
-			utilChart.createChart($scope);
+			//$scope.imports 	= [data.top1, data.top3];
+			//$scope.formData.listFilter = data.top1._id + ", " + data.top3._id;
+			//utilChart.createChart($scope);
 		}
 	}); 
 

@@ -251,6 +251,7 @@ module.exports = function(app) {
 	app.post('/library/findListLibrary', function(req, res) {
 		if(req.body.listFilter != null){
 			var list = utils.formartList(req.body.listFilter);
+			list = utils.removeDuplicate(list); //Remove itens duplicados.
 			findListLibrary(res, list);
 		}
 	});

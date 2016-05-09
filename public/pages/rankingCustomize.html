@@ -62,13 +62,13 @@
           <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
               <li>
-                <a href="index.html"><i class="fa fa-database fa-fw"></i> Dataset </a>
+                <a href="index.html"><i class="fa fa-database fa-fw"></i> Home </a>
               </li>
               <li>
                 <a href="#"><i class="fa fa-signal fa-fw"></i> Java API Popularity<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
-                    <a href="ranking.html"></i> Top APIs </a>
+                    <a href="ranking.html"></i> Top Interfaces </a>
                   </li>
                   <li>
                     <a href="rankingCustomize.html"> Customize Rankings </a>
@@ -79,7 +79,7 @@
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Graphical Analysis <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
-                   <a href="chart.html"> Top APIs Charts</a>
+                   <a href="chart.html"> Top Interfaces Charts</a>
                   </li>
                   <li>
                    <a href="chartCustomize.html"> Customize Rankings Charts</a>
@@ -103,19 +103,21 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="well well-lg text-justify">
-            <strong>Instructions:</strong>
+            <strong>Help:</strong>
             <ul>
               <li class="intructions">
-                Select the <strong>Table Type</strong>:
+                 Select the <strong>Granularity</strong> level:
                 <ul>
                   <li class="intructions">
-                    <strong>Interfaces</strong>: Option to analyze the use of interfaces. Enter the list separated by comma (example: java.util.List, java.util.ArrayList).
+                    <strong>Interfaces</strong>: Enter a list of interfaces separated by comma (example: java.util.List, java.util.ArrayList).
                   </li>
                   <!-- /.sub intructions -->
                   <li class="intructions">
-                    <strong>Libraries</strong>: Option to analyze the most important interfaces per library. Enter the libraries list separated by comma (example: java.util, java.io).
+                    <strong>Libraries</strong>: Enter a list of libraries separated by comma (example: java.util, java.io).
                     <ul>
-                      <li><strong>Group Libraries</strong>: Option to see the use of libraries.
+                      <li><strong>Group Libraries</strong>: Option to group the queried libraries.
+                      </li>
+                      <li><strong>Contains</strong>: Option to search substring in the queried libraries.
                       </li>
                     </ul>
                   </li>
@@ -123,15 +125,15 @@
                 </ul>
               </li>
               <li class="intructions">
-                Then, press the <strong>Research</strong> button. 
+                Then, press the blue button to perform the query.
               </li>
               <!-- /.intructions -->
               <li class="intructions">
-                Press the <strong>Delete table</strong> button to remove data table.
+                Press the red button to remove data table.
               </li>
               <!-- /.intructions -->
               <li class="intructions">
-                Press the <strong>Download</strong> button to download data in CSV format.
+                Press the green button to download data in CSV format.
               </li>
               <!-- /.intructions -->
             </ul>
@@ -149,7 +151,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div id="filterLibrary">
-                      <strong class='text-type'>Table Type:</strong>
+                      <strong class='text-type'>Granularity:</strong>
                       <label class="radio-inline">
                         <input type="radio" name="optionsRadiosFilterLibrary" id="filterApiButton" ng-click='clearTableAndParameters()' ng-model="formData.type" value="api" checked> Interfaces 
                       </label>
@@ -169,7 +171,7 @@
                   <div class="col-md-8">
                     <div class="form-group input-group">
                       <!-- Campo para o usuário informar as top apis que deseja visualizar.-->
-                      <input type="text" class="form-control" placeholder="Enter list separed by comma ( , )"  ng-model="formData.listFilter">
+                      <input type="text" class="form-control" placeholder="Please, enter a list of interfaces/APIs separated by comma"  ng-model="formData.listFilter">
                       <span class="input-group-btn">
                         <button id="searchList" class="btn btn-primary" type="button" ng-show="(formData.type === 'api') || (show.group)" data-toggle="tooltip" data-placement="top"	title="Research" ng-click="createCustomizesTable()" ><i class="fa fa-sort-amount-desc"></i>
                         </button>
