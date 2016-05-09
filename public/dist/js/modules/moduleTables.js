@@ -93,9 +93,9 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 		if(data){
 			$scope.info = data;
 			$scope.allProjects = data.allProjects;
-			$scope.imports 	= [data.top1, data.top3];
-			$scope.formData.listFilter = data.top1._id + ", " + data.top3._id;
-			utilTable.createTableCustomize($scope);
+			//$scope.imports 	= [data.top1, data.top3];
+			//$scope.formData.listFilter = data.top1._id + ", " + data.top3._id;
+			//utilTable.createTableCustomize($scope);
 		}
 	});
 
