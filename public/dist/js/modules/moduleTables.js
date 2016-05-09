@@ -274,6 +274,7 @@ moduleCharts.service('utilTable', function() {
 	
 	//Insere dados na tabela.
 	this.createTableTop = function(data){
+
 		var t = data.table;
 		var list = data.imports;
 		if(list.length > 0){
@@ -287,8 +288,10 @@ moduleCharts.service('utilTable', function() {
 					registry.value.OccurrenceProject.toLocaleString(), //valor absoluto
 				]);
 			}	
-			t.draw(false);
 			this.enabledButton('downloadTable');
+
+			t.draw(true);
+			t.page('last').draw(false); //Posiciona na última página.
 		}
 	}
 
@@ -311,7 +314,9 @@ moduleCharts.service('utilTable', function() {
 					occurrenceProject.toLocaleString(), //valor absoluto
 				]);
 			}	
-			t.draw(false);
+			t.draw(true);
+			t.page('last').draw(false); //Posiciona na última página.
+			
 			this.enabledButton('downloadTable');
 		}
 	}
@@ -338,6 +343,7 @@ moduleCharts.service('utilTable', function() {
 				responsive: true,
 			  "bProcessing": true,
 			  "bDestroy": true
+
 			});
 		}
 		return table;
