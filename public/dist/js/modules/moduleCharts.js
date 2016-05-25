@@ -247,7 +247,7 @@ moduleCharts.service('utilChart', function() {
 		if((list != null) && (list.length > 0)){
 			this.createAreaChart();
 			var allProjects = data.allProjects;
-			var labelDefault = "Ocurrence project";
+			var labelDefault = "Projects";
 			var yKeyDefault = "ocurrence";
 			var	xKeyDefault = "import";
 			var listGraph = [];
