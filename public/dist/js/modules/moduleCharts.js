@@ -34,6 +34,9 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 
 	//Remove gráfico.
   $scope.removeChart = function(){
+  	$scope.formData.size = 0;
+  	$scope.formData.limit = 0;
+  	$scope.imports 	= [];
 		utilChart.removeChart();
 	}
 
@@ -232,7 +235,7 @@ moduleCharts.service('utilChart', function() {
 
 	//Calcula a porcentagem da ocorrência, 3 casas decimais.
 	this.calcOccurrence = function(val, data){
-			return parseFloat(val * 100 / data.allProjects).toFixed(3);
+			return parseFloat(val * 100 / data.allProjects).toFixed(2);
 	}
 
 	// Criar uma gráfico de barras conforme a lista de APIs recebida.
@@ -258,7 +261,7 @@ moduleCharts.service('utilChart', function() {
 
 					//Calcula a porcentagem da ocorrência, 3 casas decimais.
 					//ocurrence = this.calcOccurrence(registry.value.OccurrenceProject, data); // percentual de ocorrência
-					var p = registry.percentage ? registry.percentage.toFixed(3) : this.calcOccurrence(registry.value.OccurrenceProject, data);
+					var p = registry.percentage ? registry.percentage.toFixed(2) : this.calcOccurrence(registry.value.OccurrenceProject, data);
 
 					var value = {};
 					value.import = registry._id;
@@ -268,8 +271,8 @@ moduleCharts.service('utilChart', function() {
 					listGraph.push(value);
 					listLabel.push(labelDefault);
 			}	
-			var angleX = 55;
-			var paddingX = 90;
+			var angleX = 45;
+			var paddingX = 100;
 			if(list.length <= 5){
 				angleX = 0;
 				paddingX = 40;

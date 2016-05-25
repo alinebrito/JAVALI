@@ -184,8 +184,10 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 	//Cria tabela conforme parâmetros selecionados na interface.
 	$scope.createCustomizesTable = function() {
 		$scope.show.loading = true;
-		
-		if($scope.formData.type === "api"){ //Para opção "APIs".
+
+		if($scope.formData.listFilter != "" && $scope.formData.listFilter != " " && $scope.formData.listFilter != null){
+			
+			if($scope.formData.type === "api"){ //Para opção "APIs".
 			$scope.clearTable();//Limpa tabela.
 				factoryRankings.findListApi($scope.formData)
 				.success(function(data) {
@@ -194,65 +196,69 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 				.error(function(data, status) {
 					$scope.processError();
 				});
-		}
-		else { //Para opção "Libraries".
-			if ($scope.show.group) { //Se opção "Group" assinalada.
-				$scope.clearTable();//Limpa tabela.
-				if ($scope.show.contains) { //Se opção "Contains" assinalada.
-					 factoryRankings.findListLibraryByString($scope.formData)
-					.success(function(data) {
-						$scope.processSuccess(data);
-					})
-					.error(function(data, status) {
-							$scope.processError();
-					});
-				}
-				else{//Se opção "Contains" não está assinalada.
-					factoryRankings.findListLibrary($scope.formData)
-					.success(function(data) {
-						$scope.processSuccess(data);
-					})
-					.error(function(data, status) {
-						$scope.processError();
-					});
-				}
-			} else { //Sem a opção "Group".
-					//Limpa a tabela somente se as opções de busca mudaram.
-					if($scope.formData.listFilter != $scope.formData.listFilterOld){
-							$scope.clearTable();//Limpa tabela.
-					}
-					$scope.formData.listFilterOld = $scope.formData.listFilter;
-					$scope.formData.limit = utilTable.sizeTable($scope);
-				
+			}
+			else { //Para opção "Libraries".
+				if ($scope.show.group) { //Se opção "Group" assinalada.
+					$scope.clearTable();//Limpa tabela.
 					if ($scope.show.contains) { //Se opção "Contains" assinalada.
-					
-						//Limpa a tabela se string de busca foi modificada.
-						if($scope.formData.contains != $scope.formData.containsOld){
-								$scope.clearTable();//Limpa tabela.
-						}
-						$scope.formData.containsOld = $scope.formData.contains;
-						$scope.formData.limit = utilTable.sizeTable($scope);
-
-						factoryRankings.findListApiByLibraryAndString($scope.formData)
+						 factoryRankings.findListLibraryByString($scope.formData)
 						.success(function(data) {
 							$scope.processSuccess(data);
 						})
 						.error(function(data, status) {
 								$scope.processError();
 						});
-				}
-				else{//Se opção "Contains" não está assinalada.
-					factoryRankings.findListApiByLibrary($scope.formData)
-					.success(function(data) {
-						$scope.processSuccess(data);
-					})
-					.error(function(data, status) {
+					}
+					else{//Se opção "Contains" não está assinalada.
+						factoryRankings.findListLibrary($scope.formData)
+						.success(function(data) {
+							$scope.processSuccess(data);
+						})
+						.error(function(data, status) {
 							$scope.processError();
-					});
+						});
+					}
+				} else { //Sem a opção "Group".
+						//Limpa a tabela somente se as opções de busca mudaram.
+						if($scope.formData.listFilter != $scope.formData.listFilterOld){
+								$scope.clearTable();//Limpa tabela.
+						}
+						$scope.formData.listFilterOld = $scope.formData.listFilter;
+						$scope.formData.limit = utilTable.sizeTable($scope);
+					
+						if ($scope.show.contains) { //Se opção "Contains" assinalada.
+						
+							//Limpa a tabela se string de busca foi modificada.
+							if($scope.formData.contains != $scope.formData.containsOld){
+									$scope.clearTable();//Limpa tabela.
+							}
+							$scope.formData.containsOld = $scope.formData.contains;
+							$scope.formData.limit = utilTable.sizeTable($scope);
+
+							factoryRankings.findListApiByLibraryAndString($scope.formData)
+							.success(function(data) {
+								$scope.processSuccess(data);
+							})
+							.error(function(data, status) {
+									$scope.processError();
+							});
+					}
+					else{//Se opção "Contains" não está assinalada.
+						factoryRankings.findListApiByLibrary($scope.formData)
+						.success(function(data) {
+							$scope.processSuccess(data);
+						})
+						.error(function(data, status) {
+								$scope.processError();
+						});
+					}
 				}
 			}
 		}
-	};
+		else{
+			$scope.processSuccess([]);
+		}
+	}
 });
 
 moduleCharts.service('utilTable', function() {
@@ -269,7 +275,7 @@ moduleCharts.service('utilTable', function() {
 
 	//Calcula a porcentagem da ocorrência, 3 casas decimais.
 	this.calcOccurrence = function(val, data){
-			return parseFloat(val * 100 / data.allProjects).toFixed(3);
+			return parseFloat(val * 100 / data.allProjects).toFixed(2);
 	}
 	
 	//Insere dados na tabela.
@@ -284,8 +290,8 @@ moduleCharts.service('utilTable', function() {
 				t.row.add( [
 					registry.index,
 					registry._id,
-					registry.percentage.toFixed(3),
 					registry.value.OccurrenceProject.toLocaleString(), //valor absoluto
+					registry.percentage.toFixed(2),
 				]);
 			}	
 			this.enabledButton('downloadTable');
@@ -305,13 +311,13 @@ moduleCharts.service('utilTable', function() {
 				index++;
 				var registry = list[i];
 				var occurrenceProject = registry.value ? registry.value.OccurrenceProject : 0;
-				var p = registry.percentage ? registry.percentage.toFixed(3) : this.calcOccurrence(occurrenceProject, data);
+				var p = registry.percentage ? registry.percentage.toFixed(2) : this.calcOccurrence(occurrenceProject, data);
 				//console.log(registry)
 				t.row.add( [
 					index,
 					registry._id,
-					p,
 					occurrenceProject.toLocaleString(), //valor absoluto
+					p,
 				]);
 			}	
 			t.draw(true);
@@ -355,13 +361,13 @@ moduleCharts.service('utilTable', function() {
 		var file = '';
 
 		//Insere título das colunas.
-		var title = ["Position", "Name", "Ocurrece by project (%)", "Number projects"];
+		var title = ["Position", "Name", "Number of projects", "% of projects"];
 	 	file += title.join(",") + "\n";
 	 	//Recupera conteúdo da tabela.
 		var list = data.table.data();
 
 		for (i = 0; i< list.length; i++){
-			var val = eval(i+1) + "," + list[i][1] + "," + list[i][2] + "," + (list[i][3].split(".").join(""));
+			var val = eval(i+1) + "," + list[i][1] + "," + (list[i][2].split(".").join(""))+ "," + list[i][3];
 			file += val + "\n";
 		}
 
