@@ -71,7 +71,7 @@
                     <a href="ranking.html"></i> Top Interfaces </a>
                   </li>
                   <li>
-                    <a href="rankingCustomize.html"> Customize Rankings </a>
+                    <a href="rankingCustomize.html"> Customized Rankings </a>
                   </li>
                 </ul>
               </li>
@@ -82,7 +82,7 @@
                    <a href="chart.html"> Top Interfaces Charts</a>
                   </li>
                   <li>
-                   <a href="chartCustomize.html"> Customize Rankings Charts</a>
+                   <a href="chartCustomize.html"> Customized Rankings Charts</a>
                   </li>
                 </ul>
               </li>
@@ -159,10 +159,10 @@
                         <input type="radio" name="optionsRadiosFilterLibrary" id="filterLibraryButton" ng-model="formData.type" ng-click='clearTableAndParameters()' value="library"> Libraries
                       </label>
                       <label class="radio-inline checkbox-inline" ng-show="(formData.type === 'library')" id="gropLibraryLabel">
-                        <input type="checkbox" id="gropLibraryButton"  ng-model="show.group" ng-checked="show.group"> Group Libraries
+                        <input type="checkbox" id="gropLibraryButton" ng-click="checkGroup()"  ng-model="show.group" ng-checked="show.group"> Group Libraries
                       </label>
-                      <label class="radio-inline checkbox-inline" ng-show="(formData.type === 'library')" id="containsLabel">
-                        <input type="checkbox" id="containsButton" ng-model="show.contains" ng-checked="show.contains"> Contains
+                      <label class="radio-inline checkbox-inline" ng-show="(formData.type === 'library')" ng-show="(formData.type === 'library')" id="containsLabel">
+                        <input type="checkbox" id="containsButton" ng-click="checkContains()" ng-model="show.contains" ng-checked="show.contains"> Contains
                       </label>
                     </div>
                   </div>
@@ -185,7 +185,7 @@
                     </div>
                   </div>
                   <div class="col-lg-4">
-                    <input type="text" ng-show="show.contains" class="form-control" placeholder="Enter a string"  ng-model="formData.contains">
+                    <input type="text" ng-show="(formData.type === 'library') &&  show.contains" class="form-control" placeholder="Enter a string"  ng-model="formData.contains">
                   </div>
                   <!-- /.col-lg-6 -->
                 </div>

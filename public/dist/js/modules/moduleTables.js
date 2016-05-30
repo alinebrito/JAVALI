@@ -99,6 +99,16 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 		}
 	});
 
+  //Desmarca contains.
+	$scope.checkGroup = function(){
+		$scope.show.contains = false;
+	}
+
+	//Desmarca group.
+	$scope.checkContains = function(){
+		$scope.show.group = false;
+	}
+
 	$scope.createDefaultTableLibraryGroup = function(){
 		if($scope.show.group){
 			$scope.formData.listFilter = $scope.info.library.name;
