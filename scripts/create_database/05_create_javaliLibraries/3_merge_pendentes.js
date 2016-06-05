@@ -1,14 +1,14 @@
 use JAVALI
 
-db.getCollection('javaliLibraries_CALCULADO_COM_ANDROID').find({}).forEach(function(val){
+db.getCollection('javaliLibraries_CALC').find({}).forEach(function(val){
     print(val.cod);
     db.getCollection('javaliLibraries').update(
     {"_id" : val._id},
     {$set: 
         {"value.OccurrenceProject" : val.value.OccurrenceProject,
         'percentage': val.percentage}
-   },
-	{upsert: true }
+   	},
+		{upsert: true }
 	);
 })
 
