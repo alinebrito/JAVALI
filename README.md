@@ -37,7 +37,7 @@ We use Boa Language and Infrastructure (GitHub dataset). We analyze projects wit
   mongo < 2_calc_libraries.js
   mongo < 3_merge_pendentes.js
   ```
-* Remove collections javaliLibraries_CALC and test2 javaliLibraries_top_0_and_2000.
+* Remove collections 'javaliLibraries_CALC' and 'javaliLibraries_top_0_and_2000'.
 
 * Start the application server.
 
