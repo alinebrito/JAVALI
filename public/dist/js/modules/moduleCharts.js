@@ -26,9 +26,6 @@ moduleCharts.controller('controllerCustomizesCharts', function($scope, factoryRa
 	.success(function(data){
 		if(data){
 			$scope.allProjects = data.allProjects;
-			//$scope.imports 	= [data.top1, data.top3];
-			//$scope.formData.listFilter = data.top1._id + ", " + data.top3._id;
-			//utilChart.createChart($scope);
 		}
 	}); 
 
@@ -260,7 +257,6 @@ moduleCharts.service('utilChart', function() {
 					var registry = list[i];
 
 					//Calcula a porcentagem da ocorrência, 3 casas decimais.
-					//ocurrence = this.calcOccurrence(registry.value.OccurrenceProject, data); // percentual de ocorrência
 					var p = registry.percentage ? registry.percentage.toFixed(2) : this.calcOccurrence(registry.value.OccurrenceProject, data);
 
 					var value = {};

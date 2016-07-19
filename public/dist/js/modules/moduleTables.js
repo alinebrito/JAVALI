@@ -93,65 +93,25 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 		if(data){
 			$scope.info = data;
 			$scope.allProjects = data.allProjects;
-			//$scope.imports 	= [data.top1, data.top3];
-			//$scope.formData.listFilter = data.top1._id + ", " + data.top3._id;
-			//utilTable.createTableCustomize($scope);
 		}
 	});
 
-  //Desmarca contains.
+  //Desmarca contains e limpa dados da tabela.
 	$scope.checkGroup = function(){
+		$scope.imports = [];
+		utilTable.clearTable($scope);
 		$scope.show.contains = false;
 	}
 
-	//Desmarca group.
+	//Desmarca group e limpa dados da tabela.
 	$scope.checkContains = function(){
+		$scope.imports = [];
+		utilTable.clearTable($scope);
 		$scope.show.group = false;
 	}
 
-	$scope.createDefaultTableLibraryGroup = function(){
-		if($scope.show.group){
-			$scope.formData.listFilter = $scope.info.library.name;
-		  utilTable.clearTable($scope);
-		  $scope.imports 	= [$scope.info.library.group];
-		  utilTable.createTableCustomize($scope);
-		}
-		else{
-			$scope.createDefaultTableLibrary();
-		}
-		 
-	}
 
-	$scope.createDefaultTableContains = function () {
-		if ($scope.show.contains) { //Se opção "Contains" assinalada.
-			$scope.formData.listFilter = "";
-			utilTable.clearTable($scope);
-		}
-		else{
-			$scope.createDefaultTableLibraryGroup();
-		}
-	}
-	
-
-	$scope.createDefaultTableLibrary = function () {
-		 $scope.formData.listFilter = $scope.info.library.name;
-		 utilTable.clearTable($scope);
-		 $scope.imports 	= [$scope.info.library.api1,
-		 										 $scope.info.library.api2,
-		 										 $scope.info.library.api3,
-		 										 $scope.info.library.api4,
-		 										 $scope.info.library.api5];
-		 utilTable.createTableCustomize($scope);
-	}
-
-	$scope.createDefaultTableInterfaces = function () {
-		 utilTable.clearTable($scope);
-		 $scope.imports 	= [$scope.info.top1, $scope.info.top3];
-		 $scope.formData.listFilter = $scope.info.top1._id + ", " + $scope.info.top3._id;
-		 utilTable.createTableCustomize($scope);
-	}
-
-	//Remove dados da tabela.
+	//Remove dados da tabela e interfaces/biblitecas informadas.
 	$scope.clearTableAndParameters = function(){
 		$scope.formData.listFilter = "";
 		$scope.imports = [];
@@ -229,7 +189,8 @@ moduleCharts.controller('controllerCustomizesTables', function($scope, factoryRa
 						});
 					}
 				} else { //Sem a opção "Group".
-						//Limpa a tabela somente se as opções de busca mudaram.
+						//Limpa a tabela somente se bibliotecas informadas mudaram.
+						//Ou filtro anterior envolvia contains ou group
 						if($scope.formData.listFilter != $scope.formData.listFilterOld){
 								$scope.clearTable();//Limpa tabela.
 						}
@@ -311,7 +272,7 @@ moduleCharts.service('utilTable', function() {
 		}
 	}
 
-		//Insere dados na tabela.
+	//Insere dados na tabela.
 	this.createTableCustomize = function(data){
 		var t = data.table;
 		var list = data.imports;
@@ -322,7 +283,6 @@ moduleCharts.service('utilTable', function() {
 				var registry = list[i];
 				var occurrenceProject = registry.value ? registry.value.OccurrenceProject : 0;
 				var p = registry.percentage ? registry.percentage.toFixed(2) : this.calcOccurrence(occurrenceProject, data);
-				//console.log(registry)
 				t.row.add( [
 					index,
 					registry._id,
