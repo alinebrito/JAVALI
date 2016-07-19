@@ -31,9 +31,14 @@ We use Boa Language and Infrastructure (GitHub dataset). We analyze projects wit
 
    ```
   node create_collection_JavaliApi.js
-  sh create_collection_JavaliApiGroup.sh
+  mongo < create_collection_JavaliApiGroup.js
   mongo < create_top_1k_apis.js
+  mongo < 1_find_libraries_top_2000.js
+  mongo < 2_calc_libraries.js
+  mongo < 3_merge_pendentes.js
   ```
+* Remove collections 'javaliLibraries_CALC' and 'javaliLibraries_top_0_and_2000'.
+
 * Start the application server.
 
    ```
