@@ -3,6 +3,8 @@ Discover and compare Java Libraries and Interfaces
 
 Everyday, libraries are updated, created or removed, and so their APIs. Such changes may impact stakeholders such as APIs providers and clients. In this context, it is important for APIs providers to know about strategic information like APIs change impact on clients and popularity over competitors. On the client side, it is interesting to compare APIs in order to select the most recommended in the market. To address these challenges, we propose JAVALI, a tool to analyze the popularity of Java APIs. Our database is composed of around 260K Java projects and 131M APIs. Our Web interface provides features to view and to export the results. We also report usage examples of JAVALI to solve real world API issues.
 
+Available in: [JAVALI - Applied Software Engineering Research Group - UFMG](http://java.labsoft.dcc.ufmg.br/javali/)
+
 ##Dataset
 
 Data were collected through the [Boa Language and Infrastructure](http://boa.cs.iastate.edu/) . We database contains: 
