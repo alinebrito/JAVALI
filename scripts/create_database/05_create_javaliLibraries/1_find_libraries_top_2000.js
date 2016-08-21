@@ -1,9 +1,10 @@
-//Percorre a lista de APIs e identifica as bibliotecas. Domínios não são considerados bibliotecas.
-//Salva na coleção 
+//Percorre a lista de APIs e identifica as bibliotecas entre as duas mil APIs mais populares.
+//Domínios não são considerados.
+//Salva na coleção 'javaliLibraries_top_0_and_2000'
 
 use JAVALI
 
-// pais, pais.com, com.pais, dominios comuns.
+// país, país.com, com.país, dominios comuns.
 var domins = [  
         {'name': 'ac'},
         {'name': 'com.ac'},
@@ -781,7 +782,7 @@ db.getCollection('javaliApiGroup').find({}).limit(2000).skip(0).sort({"value.Occ
 
         if(isDomin.length == 0){
             print(library)
-            db.getCollection('javaliLibraries_top_0_ate_2000').update({"_id" : library}, {"_id" : library}, {upsert:true});
+            db.getCollection('javaliLibraries_top_0_and_2000').update({"_id" : library}, {"_id" : library}, {upsert:true});
         }
         library += ".";
     }

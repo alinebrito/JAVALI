@@ -1,7 +1,9 @@
 # JAVALI
 Discover and compare Java Libraries and Interfaces
 
-Everyday, libraries/frameworks are updated, created or removed, and so their APIs. Such changes may impact stakeholders such as API providers and clients. In this context, it is important for API providers to know strategic information like API change impact on clients and popularity over competitors. On the client side, it is interesting to compare APIs in order to select the most recommended in the market. To address these challenges, we propose JAVALI, a tool that allows to compare and to categorize Java APIs. Our database is composed of around 260K Java projects and 131M APIs. Our web interface provides features to view and export the results.
+Everyday, libraries are updated, created or removed, and so their APIs. Such changes may impact stakeholders such as APIs providers and clients. In this context, it is important for APIs providers to know about strategic information like APIs change impact on clients and popularity over competitors. On the client side, it is interesting to compare APIs in order to select the most recommended in the market. To address these challenges, we propose JAVALI, a tool to analyze the popularity of Java APIs. Our database is composed of around 260K Java projects and 131M APIs. Our Web interface provides features to view and to export the results. We also report usage examples of JAVALI to solve real world API issues.
+
+Available in: [JAVALI - Applied Software Engineering Research Group - UFMG](http://java.labsoft.dcc.ufmg.br/javali/)
 
 ##Dataset
 
@@ -9,10 +11,9 @@ Data were collected through the [Boa Language and Infrastructure](http://boa.cs.
 * 263.425 Java projects;
 * 16.386.193 Java files;
 * 131.147.733 Java imports;
-* 4.780.469 imports distincts;
-* 3.803.539 imports belong to a single project.
+* 4.780.469 distinct imports.
 
-We use the GitHub database's of Boa Project . We use projects with valid Java files and at least one import.
+We use Boa Language and Infrastructure (GitHub dataset). We analyze projects with at least one valid Java file and one import. 
 
 ##Installation 
 
@@ -26,17 +27,20 @@ We use the GitHub database's of Boa Project . We use projects with valid Java fi
   cd JAVALI/
   npm install
   ```
-* Download the [file input Boa](http://boa.cs.iastate.edu/boa/index.php?q=boa/job/public/33067), to create the database. For other entries set the app/config.js file. Input file format (occurrenc - how many times Api was found in the project):
+* Download the [file input Boa](http://boa.cs.iastate.edu/boa/index.php?q=boa/job/public/35521), to create the database.
 
-  ```
-  API[project][api] = occurrence
-  ```
-* Execute the [scrips](https://github.com/alinebrito/JAVALI/tree/master/scripts/create_database), to create database outputBOA.
+* Execute the [scripts](https://github.com/alinebrito/JAVALI/tree/master/scripts/create_database), to create database outputBOA.
 
    ```
   node create_collection_JavaliApi.js
-  sh create_collection_JavaliApiGroup.sh
+  mongo < create_collection_JavaliApiGroup.js
+  mongo < create_top_1k_apis.js
+  mongo < 1_find_libraries_top_2000.js
+  mongo < 2_calc_libraries.js
+  mongo < 3_merge_pendentes.js
   ```
+* Remove collections 'javaliLibraries_CALC' and 'javaliLibraries_top_0_and_2000'.
+
 * Start the application server.
 
    ```

@@ -1,5 +1,5 @@
 //Percorre a lista de APIs e identifica as bibliotecas. Domínios não são considerados bibliotecas.
-//Salva na coleção 
+//Salva na coleção 'javaliLibraries'
 
 use JAVALI
 
@@ -774,7 +774,7 @@ db.getCollection('javaliApiGroup').find({}).forEach(function(interface){
     for(var i=0; i<listLibraries.length-1; i++){
        
         library += listLibraries[i];
-        
+        //Ignora DNS.
         var isDomin = domins.filter(function(val){
             return val.name === library;
         });
